@@ -49,3 +49,9 @@ import storage from "redux-persist/lib/storage";
 -prover persistor no App
 -whitelist/blacklist config > store/index.ts
 -middleware p/ erros de serialize > store/index.ts
+
+## Axios
+
+npm install axios
+-axios instance > config/services>api.service.ts
+-.env config
