@@ -8,12 +8,15 @@ const styles: Record<string, CSSObject> = {
   "*": {
     fontFamily: "Poppins, sans-serif",
   },
+  body: {
+    height: "100vh",
+  },
 };
 export function GlobalStyle() {
   return (
     <>
       <CssBaseline />
-      <GlobalStyles styles={styles} />;
+      <GlobalStyles styles={styles} />
     </>
   );
 }
