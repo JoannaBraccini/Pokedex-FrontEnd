@@ -2,9 +2,9 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import { Typography } from "@mui/material";
 import { Copyright } from "@mui/icons-material";
+import { SocialMenu } from "../SocialMenu";
 
 export function Footer() {
   function socialClick() {
@@ -17,14 +17,22 @@ export function Footer() {
     >
       <Toolbar>
         <IconButton color="inherit" aria-label="social" onClick={socialClick}>
-          <MenuIcon />
+          <SocialMenu />
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
         <Typography
           variant="button"
-          sx={{ display: "flex", justifyContent: "center" }}
+          noWrap
+          sx={{ display: { xs: "none", sm: "block" } }}
         >
           Desenvolvido por Joanna Braccini -- Growdev
+        </Typography>
+        <Typography
+          variant="button"
+          noWrap
+          sx={{ display: { xs: "block", sm: "none" } }}
+        >
+          Joanna Braccini
         </Typography>
         <Copyright
           fontSize="small"

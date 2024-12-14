@@ -12,8 +12,8 @@ export function Home() {
         sx={{
           backgroundImage: `url(${bgPikachu})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "90vh",
+          backgroundPosition: { xs: "-50px", lg: "-3rem bottom" },
+          height: { xs: "91vh", lg: "90vh" },
         }}
       >
         <PokeTable />
