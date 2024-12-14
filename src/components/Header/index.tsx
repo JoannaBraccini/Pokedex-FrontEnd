@@ -11,10 +11,10 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { CatchingPokemon } from "@mui/icons-material";
 import logo from "../../assets/logo.png";
-import { SearchBar } from "../SearchBar";
+import { SearchBar } from "../SearchBar/index.tsx";
 import bgPokebola from "../../assets/bgPokebola.jpeg";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["PokéAPI", "Documentação", "Growdev"];
 
 export function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -36,9 +36,10 @@ export function Header() {
         backgroundImage: `url(${bgPokebola})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        height: "5.5rem",
       }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ marginTop: 1 }}>
         <Toolbar disableGutters>
           {/* menu tela grande */}
           <CatchingPokemon
@@ -52,7 +53,7 @@ export function Header() {
             sx={{
               mr: 1,
               mb: 1,
-              height: "70px",
+              height: "80px",
               width: "auto",
               display: { xs: "none", md: "flex" },
             }}

@@ -4,19 +4,16 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import { Typography } from "@mui/material";
 import { Copyright } from "@mui/icons-material";
-import { SocialMenu } from "../SocialMenu";
+import { SocialMenu } from "../DrawerFooter";
 
 export function Footer() {
-  function socialClick() {
-    //openModalSocial
-  }
   return (
     <AppBar
       position="fixed"
       sx={{ top: "auto", bottom: 0, backgroundColor: "rgb(0, 0, 0, 0.3)" }}
     >
       <Toolbar>
-        <IconButton color="inherit" aria-label="social" onClick={socialClick}>
+        <IconButton color="inherit" aria-label="social">
           <SocialMenu />
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
