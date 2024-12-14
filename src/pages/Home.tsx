@@ -1,9 +1,24 @@
+import { Box } from "@mui/material";
 import { Header } from "../components/Header";
+import bgPikachu from "../assets/bgPikachu.jpg";
+import { PokeTable } from "../components/PokeTable";
+import { Footer } from "../components/Footer";
 
 export function Home() {
   return (
     <>
       <Header />
+      <Box
+        sx={{
+          backgroundImage: `url(${bgPikachu})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: "90vh",
+        }}
+      >
+        <PokeTable />
+      </Box>
+      <Footer />
     </>
   );
 }
