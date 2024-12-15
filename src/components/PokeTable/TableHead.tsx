@@ -6,10 +6,11 @@ import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
 import { CatchingPokemonTwoTone } from "@mui/icons-material";
-import { Data } from ".";
+import { IconButton, Tooltip } from "@mui/material";
+import { PokemonData } from "../../utils/types";
 
 interface HeadCell {
-  id: keyof Data;
+  id: keyof PokemonData;
   label: string;
   numeric: boolean;
 }
@@ -45,20 +46,24 @@ const headCells: readonly HeadCell[] = [
 interface PokeTableHeadProps {
   onRequestSort: (
     event: React.MouseEvent<unknown>,
-    property: keyof Data
+    property: keyof PokemonData
   ) => void;
   order: "asc" | "desc";
   orderBy: string;
   rowCount: number;
+  favorites: number[];
+  handlePokedexOpen: (favorites: number[]) => void;
 }
 
 export function PokeTableHead({
   order,
   orderBy,
   onRequestSort,
+  favorites,
+  handlePokedexOpen,
 }: PokeTableHeadProps) {
   const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof PokemonData) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -71,7 +76,14 @@ export function PokeTableHead({
         }}
       >
         <TableCell padding="normal">
-          <CatchingPokemonTwoTone sx={{ color: "#D32F2F" }} />
+          <Tooltip title="pokéDex">
+            <IconButton
+              sx={{ px: 0 }}
+              onClick={() => handlePokedexOpen(favorites)}
+            >
+              <CatchingPokemonTwoTone sx={{ color: "#D32F2F" }} />
+            </IconButton>
+          </Tooltip>
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell

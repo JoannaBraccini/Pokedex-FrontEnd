@@ -49,7 +49,7 @@ export default function TutorialPopover({
   };
 
   const finishTutorial = () => {
-    localStorage.setItem(tutorialKey, "true"); // Marca como visto
+    localStorage.setItem(tutorialKey, "true"); // Marca como visto //setar para global?
     setShowTutorial(false);
     setAnchorEl(null);
     if (onFinish) onFinish();
@@ -61,17 +61,16 @@ export default function TutorialPopover({
         <Popover
           open={!!anchorEl}
           anchorEl={anchorEl}
-          onClose={finishTutorial}
           anchorOrigin={{
-            vertical: "bottom",
+            vertical: "center",
             horizontal: "center",
           }}
           transformOrigin={{
-            vertical: "top",
+            vertical: "center",
             horizontal: "center",
           }}
         >
-          <Paper elevation={3} sx={{ padding: 2, backgroundColor: "#ffffff" }}>
+          <Paper elevation={3} sx={{ padding: 2 }}>
             {step === -1 ? (
               <Box>
                 <Typography>Você gostaria de ver o tutorial?</Typography>

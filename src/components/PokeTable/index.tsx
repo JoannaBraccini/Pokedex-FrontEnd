@@ -13,17 +13,9 @@ import { Avatar } from "@mui/material";
 import { PokeTableHead } from "./TableHead";
 import { PokeCard } from "../PokeCard";
 import TutorialPopover from "../TutorialPopover";
-
-export interface Data {
-  id: number;
-  name: string;
-  height: number;
-  weight: number;
-  abilities: number;
-  avatar: string; //home>front>default
-}
-
-export type Pokedex = Pick<Data, "id" | "name" | "avatar">;
+import { Pokedex } from "../Pokedex";
+import { PokemonData, PokedexData } from "../../utils/types";
+import { rows } from "../../mock";
 
 //passos do tutorial
 const tableSteps = [
@@ -31,211 +23,22 @@ const tableSteps = [
     selector: "#favorite",
     content:
       "Clique nos corações para favoritar seus Pokémons e guardá-los na PokéDex",
-    position: { top: "20%", left: "80%" },
   },
   {
     selector: "#avatar",
     content: "Clique nas linhas para ver a foto do Pokémon selecionado",
-    position: { top: "20%", left: "80%" },
   },
   {
     selector: "#search",
     content: "Busque Pokémons específicos",
-    position: { top: "20%", left: "80%" },
   },
   {
     selector: "#details",
     content: "Veja os detalhes do Pokémon selecionado",
-    position: { top: "20%", left: "80%" },
   },
   {
     selector: "#pokedex",
-    content: "Acesse seus favoritos",
-    position: { top: "20%", left: "80%" },
-  },
-];
-
-//mock para testes
-const rows: Data[] = [
-  {
-    id: 1,
-    name: "Bulbasaur",
-    height: 0.7,
-    weight: 6.9,
-    abilities: 2,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-  },
-  {
-    id: 2,
-    name: "Charmander",
-    height: 0.6,
-    weight: 8.5,
-    abilities: 3,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
-  },
-  {
-    id: 3,
-    name: "Squirtle",
-    height: 0.5,
-    weight: 9.0,
-    abilities: 2,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
-  },
-  {
-    id: 4,
-    name: "Pikachu",
-    height: 0.4,
-    weight: 6.0,
-    abilities: 1,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
-  },
-  {
-    id: 5,
-    name: "Jigglypuff",
-    height: 0.5,
-    weight: 5.5,
-    abilities: 2,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png",
-  },
-  {
-    id: 6,
-    name: "Meowth",
-    height: 0.4,
-    weight: 4.2,
-    abilities: 3,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png",
-  },
-  {
-    id: 7,
-    name: "Psyduck",
-    height: 0.8,
-    weight: 19.6,
-    abilities: 2,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/54.png",
-  },
-  {
-    id: 8,
-    name: "Machop",
-    height: 0.8,
-    weight: 19.5,
-    abilities: 4,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/66.png",
-  },
-  {
-    id: 9,
-    name: "Magnemite",
-    height: 0.3,
-    weight: 6.0,
-    abilities: 1,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/81.png",
-  },
-  {
-    id: 10,
-    name: "Gengar",
-    height: 1.5,
-    weight: 40.5,
-    abilities: 3,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png",
-  },
-  {
-    id: 11,
-    name: "Onix",
-    height: 8.8,
-    weight: 210.0,
-    abilities: 1,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/95.png",
-  },
-  {
-    id: 12,
-    name: "Eevee",
-    height: 0.3,
-    weight: 6.5,
-    abilities: 2,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png",
-  },
-  {
-    id: 13,
-    name: "Snorlax",
-    height: 2.1,
-    weight: 460.0,
-    abilities: 1,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png",
-  },
-  {
-    id: 14,
-    name: "Dratini",
-    height: 1.8,
-    weight: 3.3,
-    abilities: 2,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/147.png",
-  },
-  {
-    id: 15,
-    name: "Mewtwo",
-    height: 2.0,
-    weight: 122.0,
-    abilities: 3,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png",
-  },
-  {
-    id: 16,
-    name: "Caterpie",
-    height: 0.3,
-    weight: 2.9,
-    abilities: 1,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png",
-  },
-  {
-    id: 17,
-    name: "Rattata",
-    height: 0.3,
-    weight: 3.5,
-    abilities: 1,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png",
-  },
-  {
-    id: 18,
-    name: "Pidgey",
-    height: 0.3,
-    weight: 1.8,
-    abilities: 1,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/16.png",
-  },
-  {
-    id: 19,
-    name: "Zubat",
-    height: 0.8,
-    weight: 7.5,
-    abilities: 2,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/41.png",
-  },
-  {
-    id: 20,
-    name: "Lugia",
-    height: 5.2,
-    weight: 216.0,
-    abilities: 3,
-    avatar:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/249.png",
+    content: "Clique na Pokébola para acessar seus favoritos",
   },
 ];
 
@@ -251,10 +54,10 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 type Order = "asc" | "desc";
 
-function getComparator<Key extends keyof Data>(
+function getComparator<Key extends keyof PokemonData>(
   order: Order,
   orderBy: Key
-): (a: Data, b: Data) => number {
+): (a: PokemonData, b: PokemonData) => number {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy) // Se for 'desc', compara de forma decrescente
     : (a, b) => -descendingComparator(a, b, orderBy); // Se for 'asc', inverte o resultado(-) para ordem crescente
@@ -262,19 +65,41 @@ function getComparator<Key extends keyof Data>(
 
 export function PokeTable() {
   const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("name");
+  const [orderBy, setOrderBy] = React.useState<keyof PokemonData>("name");
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [favorites, setFavorites] = React.useState<number[]>([]); //estado global
-  const [pokedex, setPokedex] = React.useState<Pokedex>({} as Pokedex);
+  const [pokedex, setPokedex] = React.useState<PokedexData[]>([]);
+  const [openPokedex, setOpenPokedex] = React.useState(false);
+  const [showPokemon, setShowPokemon] = React.useState<PokedexData>(
+    {} as PokedexData
+  );
+
+  const handlePokedexOpen = () => {
+    // Filtra os Pokémon favoritos presentes na Pokedex
+    const favoritePokemons = pokedex.filter((pokemon) =>
+      favorites.includes(pokemon.id)
+    );
+
+    if (favoritePokemons.length === 0) {
+      console.warn("Nenhum Pokémon favorito encontrado na Pokedex.");
+      return;
+    }
+    setPokedex(favoritePokemons);
+    setOpenPokedex(true);
+  };
+
+  const handleClose = () => {
+    setOpenPokedex(false);
+  };
 
   const handleAvatarClick = (id: number, name: string, avatar: string) => {
-    setPokedex({ id, name, avatar });
+    setShowPokemon({ id, name, avatar });
   };
 
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,
-    property: keyof Data
+    property: keyof PokemonData
   ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -283,9 +108,12 @@ export function PokeTable() {
 
   const handleFavoriteClick = (id: number) => {
     //estado global
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id]
-    );
+    setFavorites((prev) => {
+      const newFavorites = prev.includes(id)
+        ? prev.filter((favId) => favId !== id) // Desfavorita
+        : [...prev, id]; // Favorita
+      return newFavorites;
+    });
   };
 
   const handleChangePage = (_event: unknown, newPage: number) => {
@@ -325,8 +153,20 @@ export function PokeTable() {
         tutorialKey="tutorialSeen"
         onFinish={() => console.log("Tutorial finalizado!")}
       />
-      <PokeCard id={pokedex.id} name={pokedex.name} avatar={pokedex.avatar} />
-      <div id="details" style={{ display: "visualy-hidden" }} />
+      <PokeCard
+        id={showPokemon.id}
+        name={showPokemon.name}
+        avatar={showPokemon.avatar}
+      />
+      <div
+        id="details"
+        style={{
+          position: "fixed",
+          top: "63%",
+          left: "10%",
+          visibility: "hidden",
+        }}
+      />
       <Paper
         sx={{ width: { xs: "100%", md: "60%" }, mb: 2, mr: { xs: 0, md: 5 } }}
       >
@@ -336,16 +176,41 @@ export function PokeTable() {
             aria-labelledby="tableTitle"
             size="small"
           >
-            <div id="search" style={{ display: "visualy-hidden" }} />
+            <div
+              id="search"
+              style={{
+                position: "fixed",
+                top: "20%",
+                right: 0,
+                visibility: "hidden",
+              }}
+            />
             <PokeTableHead
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              favorites={favorites}
+              handlePokedexOpen={handlePokedexOpen}
             />
-            <div id="pokedex" style={{ display: "visualy-hidden" }} />
-            <div id="favorite" style={{ display: "visualy-hidden" }} />
-            <div id="avatar" style={{ display: "visualy-hidden" }} />
+            <div
+              id="pokedex"
+              style={{
+                position: "fixed",
+                top: "20%",
+                right: "46%",
+                visibility: "hidden",
+              }}
+            />
+            <div
+              id="avatar"
+              style={{
+                position: "fixed",
+                top: "30%",
+                right: "40%",
+                visibility: "hidden",
+              }}
+            />
             <TableBody>
               {visibleRows.map((row, index) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
@@ -369,6 +234,15 @@ export function PokeTable() {
                         }}
                         aria-label="favorite"
                       >
+                        <div
+                          id="favorite"
+                          style={{
+                            position: "fixed",
+                            top: "30%",
+                            right: "40%",
+                            visibility: "hidden",
+                          }}
+                        />
                         <Favorite color={isFavorited ? "error" : "inherit"} />
                       </IconButton>
                     </TableCell>
@@ -418,6 +292,7 @@ export function PokeTable() {
           labelRowsPerPage="Linhas por Página"
         />
       </Paper>
+      <Pokedex open={openPokedex} handleClose={handleClose} pokedex={pokedex} />
     </Box>
   );
 }
