@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import { Favorite } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
-import { PokeTableHead } from "./TableHead";
+import { PokeTableHead } from "../TableHead";
 import { PokeCard } from "../PokeCard";
 import TutorialPopover from "../TutorialPopover";
 import { Pokedex } from "../Pokedex";
@@ -77,14 +77,15 @@ export function PokeTable() {
 
   const handlePokedexOpen = () => {
     // Filtra os Pokémon favoritos presentes na Pokedex
-    const favoritePokemons = pokedex.filter((pokemon) =>
+    if (favorites.length === 0) {
+      console.warn("Nenhum Pokémon favoritado!");
+      return;
+    }
+
+    const favoritePokemons = rows.filter((pokemon) =>
       favorites.includes(pokemon.id)
     );
 
-    if (favoritePokemons.length === 0) {
-      console.warn("Nenhum Pokémon favorito encontrado na Pokedex.");
-      return;
-    }
     setPokedex(favoritePokemons);
     setOpenPokedex(true);
   };
@@ -148,11 +149,6 @@ export function PokeTable() {
         paddingBottom: "3rem",
       }}
     >
-      <TutorialPopover
-        steps={tableSteps}
-        tutorialKey="tutorialSeen"
-        onFinish={() => console.log("Tutorial finalizado!")}
-      />
       <PokeCard
         id={showPokemon.id}
         name={showPokemon.name}
@@ -292,6 +288,7 @@ export function PokeTable() {
           labelRowsPerPage="Linhas por Página"
         />
       </Paper>
+      <TutorialPopover steps={tableSteps} tutorialKey="tutorialSeen" />
       <Pokedex open={openPokedex} handleClose={handleClose} pokedex={pokedex} />
     </Box>
   );

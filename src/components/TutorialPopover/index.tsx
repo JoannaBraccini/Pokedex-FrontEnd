@@ -7,13 +7,11 @@ import { Box, Paper } from "@mui/material";
 interface TutorialPopoverProps {
   steps: { selector: string; content: string }[];
   tutorialKey?: string; // Identificador único para o tutorial
-  onFinish?: () => void;
 }
 
 export default function TutorialPopover({
   steps,
   tutorialKey = "defaultTutorial",
-  onFinish,
 }: TutorialPopoverProps) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [step, setStep] = React.useState<number>(-1);
@@ -52,7 +50,6 @@ export default function TutorialPopover({
     localStorage.setItem(tutorialKey, "true"); // Marca como visto //setar para global?
     setShowTutorial(false);
     setAnchorEl(null);
-    if (onFinish) onFinish();
   };
 
   return (

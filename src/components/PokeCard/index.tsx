@@ -5,10 +5,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router";
-import { Pokedex } from "../PokeTable";
 import bgPokedex from "../../assets/bgPokedex.png";
+import { PokedexData } from "../../utils/types";
 
-export function PokeCard({ id, name, avatar }: Pokedex) {
+export function PokeCard({ id, name, avatar }: PokedexData) {
   const navigate = useNavigate();
 
   const handleLinkClick = (id: number) => {
