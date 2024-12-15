@@ -5,8 +5,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router";
-import bgPokedex from "../../assets/bgPokedex.png";
 import { PokedexData } from "../../utils/types";
+import { buttonStyle, cardMediaStyle, cardStyle } from "./style";
 
 export function PokeCard({ id, name, avatar }: PokedexData) {
   const navigate = useNavigate();
@@ -15,21 +15,9 @@ export function PokeCard({ id, name, avatar }: PokedexData) {
     navigate(`/details/${id}`);
   };
   return (
-    <Card
-      sx={{
-        width: 300,
-        height: "100%",
-        mx: { xs: "auto", md: 5 },
-        p: 2,
-        border: "4px solid #521605",
-        backgroundColor: "#f8f7e5",
-      }}
-    >
+    <Card sx={cardStyle}>
       <CardMedia
-        sx={{
-          backgroundImage: `url(${bgPokedex})`,
-          border: "2px solid #521605",
-        }}
+        sx={cardMediaStyle}
         component="img"
         alt={name}
         height={160}
@@ -49,12 +37,7 @@ export function PokeCard({ id, name, avatar }: PokedexData) {
       <CardActions>
         <Button
           variant="contained"
-          sx={{
-            border: "2px solid #521605",
-            color: "white",
-            backgroundColor: "#FD0100",
-            "&:hover": { backgroundColor: "#A32B13" },
-          }}
+          sx={buttonStyle}
           fullWidth
           size="small"
           onClick={() => handleLinkClick(id)}

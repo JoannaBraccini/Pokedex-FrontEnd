@@ -16,6 +16,15 @@ import TutorialPopover from "../TutorialPopover";
 import { Pokedex } from "../Pokedex";
 import { PokemonData, PokedexData } from "../../utils/types";
 import { rows } from "../../mock";
+import {
+  avatarStyle,
+  boxStyle,
+  detailsStyle,
+  favoriteStyle,
+  paperStyle,
+  pokedexStyle,
+  searchStyle,
+} from "./style";
 
 //passos do tutorial
 const tableSteps = [
@@ -140,47 +149,21 @@ export function PokeTable() {
   );
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        flexDirection: { xs: "column", md: "row" },
-        justifyContent: "space-between",
-        paddingBottom: "3rem",
-      }}
-    >
+    <Box sx={boxStyle}>
       <PokeCard
         id={showPokemon.id}
         name={showPokemon.name}
         avatar={showPokemon.avatar}
       />
-      <div
-        id="details"
-        style={{
-          position: "fixed",
-          top: "63%",
-          left: "10%",
-          visibility: "hidden",
-        }}
-      />
-      <Paper
-        sx={{ width: { xs: "100%", md: "60%" }, mb: 2, mr: { xs: 0, md: 5 } }}
-      >
+      <Box id="details" sx={detailsStyle} />
+      <Paper sx={paperStyle}>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size="small"
           >
-            <div
-              id="search"
-              style={{
-                position: "fixed",
-                top: "20%",
-                right: 0,
-                visibility: "hidden",
-              }}
-            />
+            <Box id="search" sx={searchStyle} />
             <PokeTableHead
               order={order}
               orderBy={orderBy}
@@ -189,24 +172,8 @@ export function PokeTable() {
               favorites={favorites}
               handlePokedexOpen={handlePokedexOpen}
             />
-            <div
-              id="pokedex"
-              style={{
-                position: "fixed",
-                top: "20%",
-                right: "46%",
-                visibility: "hidden",
-              }}
-            />
-            <div
-              id="avatar"
-              style={{
-                position: "fixed",
-                top: "30%",
-                right: "40%",
-                visibility: "hidden",
-              }}
-            />
+            <Box id="pokedex" sx={pokedexStyle} />
+            <Box id="avatar" sx={avatarStyle} />
             <TableBody>
               {visibleRows.map((row, index) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
@@ -230,15 +197,7 @@ export function PokeTable() {
                         }}
                         aria-label="favorite"
                       >
-                        <div
-                          id="favorite"
-                          style={{
-                            position: "fixed",
-                            top: "30%",
-                            right: "40%",
-                            visibility: "hidden",
-                          }}
-                        />
+                        <Box id="favorite" sx={favoriteStyle} />
                         <Favorite color={isFavorited ? "error" : "inherit"} />
                       </IconButton>
                     </TableCell>

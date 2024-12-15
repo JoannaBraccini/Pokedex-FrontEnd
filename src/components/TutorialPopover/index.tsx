@@ -3,6 +3,12 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Box, Paper } from "@mui/material";
+import {
+  boxStyle,
+  buttonNextStyle,
+  buttonNoStyle,
+  buttonYesStyle,
+} from "./style";
 
 interface TutorialPopoverProps {
   steps: { selector: string; content: string }[];
@@ -71,21 +77,12 @@ export default function TutorialPopover({
             {step === -1 ? (
               <Box>
                 <Typography>Você gostaria de ver o tutorial?</Typography>
-                <Box
-                  sx={{
-                    mt: 2,
-                    display: "flex",
-                    gap: 2,
-                  }}
-                >
+                <Box sx={boxStyle}>
                   <Button
                     fullWidth
                     variant="contained"
                     color="inherit"
-                    sx={{
-                      backgroundColor: "lightgray",
-                      "&:hover": { backgroundColor: "grey", color: "white" },
-                    }}
+                    sx={buttonNoStyle}
                     onClick={finishTutorial}
                   >
                     Não
@@ -94,10 +91,7 @@ export default function TutorialPopover({
                     fullWidth
                     variant="contained"
                     onClick={handleNext}
-                    sx={{
-                      backgroundColor: "#fd0100",
-                      "&:hover": { backgroundColor: "#A32B13" },
-                    }}
+                    sx={buttonYesStyle}
                   >
                     Sim
                   </Button>
@@ -109,10 +103,7 @@ export default function TutorialPopover({
                 <div style={{ marginTop: 16 }}>
                   <Button
                     variant="contained"
-                    sx={{
-                      backgroundColor: "#7c0404",
-                      "&:hover": { backgroundColor: "#A32B13" },
-                    }}
+                    sx={buttonNextStyle}
                     onClick={handleNext}
                   >
                     {step < steps.length - 1 ? "Próximo" : "Finalizar"}

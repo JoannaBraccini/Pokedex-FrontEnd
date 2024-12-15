@@ -12,7 +12,17 @@ import MenuItem from "@mui/material/MenuItem";
 import { CatchingPokemon } from "@mui/icons-material";
 import logo from "../../assets/logo.png";
 import { SearchBar } from "../SearchBar/index.tsx";
-import bgPokebola from "../../assets/bgPokebola.jpeg";
+import {
+  appStyle,
+  boxMdStyle,
+  boxXsStyle,
+  buttonStyle,
+  iconStyle,
+  imgMdStyle,
+  imgXsStyle,
+  pokeMdStyle,
+  pokeXsStyle,
+} from "./style.ts";
 
 const pages = ["PokéAPI", "Documentação", "Growdev"];
 
@@ -30,60 +40,24 @@ export function Header() {
   };
 
   return (
-    <AppBar
-      position="static"
-      sx={{
-        backgroundImage: `url(${bgPokebola})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "5.5rem",
-      }}
-    >
+    <AppBar sx={appStyle}>
       <Container maxWidth="xl" sx={{ marginTop: 1 }}>
         <Toolbar disableGutters sx={{ display: "flex" }}>
           {/* menu tela grande */}
-          <CatchingPokemon
-            sx={{
-              color: "white",
-              display: { xs: "none", md: "flex" },
-            }}
-          />
-          <Container
-            component="img"
-            src={logo}
-            sx={{
-              mr: 1,
-              mb: 1,
-              height: "80px",
-              width: "auto",
-              display: { xs: "none", md: "flex" },
-            }}
-          ></Container>
+          <CatchingPokemon sx={pokeMdStyle} />
+          <Container component="img" src={logo} sx={imgMdStyle}></Container>
           {/* menu tela pequena */}
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "flex", md: "none" },
-            }}
-          >
+          <Box sx={boxXsStyle}>
             <Tooltip title="Menu">
               <IconButton
                 size="large"
                 aria-label="menu-pop"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                sx={{
-                  backgroundColor: "black",
-                  "&:hover": { backgroundColor: "#FE0000" },
-                }}
+                sx={iconStyle}
                 onClick={handleOpenNavMenu}
               >
-                <CatchingPokemon
-                  sx={{
-                    color: "white",
-                    display: { xs: "flex", md: "none" },
-                  }}
-                />
+                <CatchingPokemon sx={pokeXsStyle} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -109,35 +83,10 @@ export function Header() {
               ))}
             </Menu>
           </Box>
-          <Container
-            component="img"
-            src={logo}
-            sx={{
-              mr: 10,
-              mb: 1,
-              height: "70px",
-              width: "auto",
-              display: { xs: "flex", md: "none" },
-            }}
-          ></Container>
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", md: "flex" },
-            }}
-          >
+          <Container component="img" src={logo} sx={imgXsStyle}></Container>
+          <Box sx={boxMdStyle}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: "block",
-                  backgroundColor: "black",
-                  p: "5px 15px",
-                }}
-              >
+              <Button key={page} onClick={handleCloseNavMenu} sx={buttonStyle}>
                 {page}
               </Button>
             ))}

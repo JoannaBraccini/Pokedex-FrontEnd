@@ -11,8 +11,14 @@ import {
 import { PokedexData } from "../../utils/types";
 import { HighlightOff } from "@mui/icons-material";
 import { useState } from "react";
-import logo2 from "../../assets/logo2.png";
-import quem from "../../assets/quem.png";
+import {
+  boxStyle,
+  buttonNextStyle,
+  buttonPrevStyle,
+  contentBoxStyle,
+  iconButtonStyle,
+  imgBoxStyle,
+} from "./style";
 
 interface PokedexProps {
   open: boolean;
@@ -38,46 +44,18 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
-      <Box
-        sx={{
-          backgroundImage: `url(${logo2})`,
-          backgroundSize: "cover",
-          backgroundPositionY: "center",
-          height: { xs: 90, md: 150 },
-        }}
-      >
-        <IconButton
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            top: 10,
-            right: 10,
-            color: "white",
-            "&:hover": { color: "#e01d18" },
-          }}
-        >
+      <Box sx={boxStyle}>
+        <IconButton onClick={handleClose} sx={iconButtonStyle}>
           <HighlightOff />
         </IconButton>
       </Box>
       <DialogContent>
         {currentPokemon && (
-          <Box
-            sx={{
-              backgroundImage: `url(${quem})`,
-              backgroundSize: "cover",
-              backgroundPositionY: "bottom",
-              pl: { md: 3 },
-              pt: { md: 1 },
-            }}
-          >
+          <Box sx={contentBoxStyle}>
             <img
               src={currentPokemon.avatar}
               alt={currentPokemon.name}
-              style={{
-                height: "auto",
-                width: "15rem",
-                marginBottom: "16px",
-              }}
+              style={imgBoxStyle}
             />
           </Box>
         )}
@@ -96,13 +74,7 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
           variant="outlined"
           onClick={handlePrev}
           color="primary"
-          sx={{
-            color: "white",
-            background: "linear-gradient(90deg, #ff0000,  #080808)",
-            "&:hover": {
-              background: "linear-gradient(90deg, #080808, #ff0000)",
-            },
-          }}
+          sx={buttonPrevStyle}
         >
           Anterior
         </Button>
@@ -111,13 +83,7 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
           variant="outlined"
           onClick={handleNext}
           color="primary"
-          sx={{
-            color: "white",
-            background: "linear-gradient(90deg, #080808, #ff0000)",
-            "&:hover": {
-              background: "linear-gradient(90deg, #ff0000,  #080808)",
-            },
-          }}
+          sx={buttonNextStyle}
         >
           Próximo
         </Button>
