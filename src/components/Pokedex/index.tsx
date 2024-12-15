@@ -43,7 +43,7 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
           backgroundImage: `url(${logo2})`,
           backgroundSize: "cover",
           backgroundPositionY: "center",
-          height: 150,
+          height: { xs: 90, md: 150 },
         }}
       >
         <IconButton
@@ -62,19 +62,20 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
       <DialogContent>
         {currentPokemon && (
           <Box
-            paddingLeft={3}
-            paddingTop={1}
             sx={{
               backgroundImage: `url(${quem})`,
               backgroundSize: "cover",
+              backgroundPositionY: "bottom",
+              pl: { md: 3 },
+              pt: { md: 1 },
             }}
           >
             <img
               src={currentPokemon.avatar}
               alt={currentPokemon.name}
               style={{
-                height: "300px",
-                width: "auto",
+                height: "auto",
+                width: "15rem",
                 marginBottom: "16px",
               }}
             />
