@@ -81,7 +81,9 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
           </Box>
         )}
         <Typography variant="h6" textAlign="center">
-          It's {currentPokemon.name}!
+          {currentPokemon
+            ? `É ${currentPokemon.name}!`
+            : "Carregando Pokémon..."}
         </Typography>
       </DialogContent>
       <DialogTitle variant="button" textAlign="center">
