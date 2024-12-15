@@ -9,9 +9,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import { Favorite } from "@mui/icons-material";
-import { useNavigate } from "react-router";
-import { Avatar, Container } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { PokeTableHead } from "./TableHead";
+import { PokeCard } from "../PokeCard";
 
 export interface Data {
   id: number;
@@ -21,6 +21,8 @@ export interface Data {
   abilities: number;
   avatar: string; //home>front>default
 }
+
+export type Pokedex = Pick<Data, "id" | "name" | "avatar">;
 
 //mock para testes
 const rows: Data[] = [
@@ -159,6 +161,51 @@ const rows: Data[] = [
     avatar:
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png",
   },
+  {
+    id: 16,
+    name: "Caterpie",
+    height: 0.3,
+    weight: 2.9,
+    abilities: 1,
+    avatar:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png",
+  },
+  {
+    id: 17,
+    name: "Rattata",
+    height: 0.3,
+    weight: 3.5,
+    abilities: 1,
+    avatar:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png",
+  },
+  {
+    id: 18,
+    name: "Pidgey",
+    height: 0.3,
+    weight: 1.8,
+    abilities: 1,
+    avatar:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/16.png",
+  },
+  {
+    id: 19,
+    name: "Zubat",
+    height: 0.8,
+    weight: 7.5,
+    abilities: 2,
+    avatar:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/41.png",
+  },
+  {
+    id: 20,
+    name: "Lugia",
+    height: 5.2,
+    weight: 216.0,
+    abilities: 3,
+    avatar:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/249.png",
+  },
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -188,10 +235,10 @@ export function PokeTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [favorites, setFavorites] = React.useState<number[]>([]);
-  const navigate = useNavigate(); // Hook para navegação
+  const [pokedex, setPokedex] = React.useState<Pokedex>({} as Pokedex);
 
-  const handleLinkClick = (id: number) => {
-    navigate(`/details/${id}`);
+  const handleAvatarClick = (id: number, name: string, avatar: string) => {
+    setPokedex({ id, name, avatar });
   };
 
   const handleRequestSort = (
@@ -234,8 +281,19 @@ export function PokeTable() {
   );
 
   return (
-    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-      <Paper sx={{ width: "90%", mb: 2 }}>
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        justifyContent: "space-between",
+        paddingBottom: "3rem",
+      }}
+    >
+      <PokeCard id={pokedex.id} name={pokedex.name} avatar={pokedex.avatar} />
+      <Paper
+        sx={{ width: { xs: "100%", md: "60%" }, mb: 2, mr: { xs: 0, md: 5 } }}
+      >
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -259,7 +317,6 @@ export function PokeTable() {
                     role="checkbox"
                     tabIndex={-1}
                     key={row.id}
-                    onClick={() => handleLinkClick(row.id)}
                     sx={{ cursor: "pointer" }}
                   >
                     <TableCell padding="checkbox">
@@ -279,6 +336,9 @@ export function PokeTable() {
                       scope="row"
                       padding="normal"
                       align="center"
+                      onClick={() =>
+                        handleAvatarClick(row.id, row.name, row.avatar)
+                      }
                     >
                       {row.name}
                     </TableCell>
@@ -289,7 +349,7 @@ export function PokeTable() {
                       <Avatar
                         src={row.avatar}
                         alt={row.name}
-                        sx={{ height: 50, width: 50 }}
+                        sx={{ justifySelf: "center", height: 50, width: 50 }}
                       />
                     </TableCell>
                   </TableRow>

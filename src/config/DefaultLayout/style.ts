@@ -4,6 +4,6 @@ export const style = {
   backgroundImage: `url(${bgPikachu})`,
   backgroundSize: "cover",
   backgroundPosition: { xs: "-50px", lg: "-3rem bottom" },
-  height: "calc(100vh - 64px)",
+  height: "calc(100vh - 6rem)",
   paddingTop: "1rem",
 };

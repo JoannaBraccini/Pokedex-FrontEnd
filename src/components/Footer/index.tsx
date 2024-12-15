@@ -10,7 +10,11 @@ export function Footer() {
   return (
     <AppBar
       position="fixed"
-      sx={{ top: "auto", bottom: 0, backgroundColor: "rgb(0, 0, 0, 0.3)" }}
+      sx={{
+        top: "auto",
+        bottom: 0,
+        backgroundColor: "rgb(0, 0, 0, 0.3)",
+      }}
     >
       <Toolbar>
         <IconButton color="inherit" aria-label="social">

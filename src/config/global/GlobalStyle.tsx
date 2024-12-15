@@ -9,7 +9,11 @@ const styles: Record<string, CSSObject> = {
     fontFamily: "Poppins, sans-serif",
   },
   body: {
+    display: "flex",
+    flexDirection: "column",
     height: "100vh",
+    backgroundColor: "#FFC801",
+    zIndex: -10,
   },
 };
 export function GlobalStyle() {
