@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router";
-import { Pokedex } from "../PokeTable/PokeTable";
+import { Pokedex } from "../PokeTable";
 import bgPokedex from "../../assets/bgPokedex.png";
 
 export function PokeCard({ id, name, avatar }: Pokedex) {
@@ -19,7 +19,7 @@ export function PokeCard({ id, name, avatar }: Pokedex) {
       sx={{
         width: 300,
         height: "100%",
-        ml: 5,
+        mx: { xs: "auto", md: 5 },
         p: 2,
         border: "4px solid #521605",
         backgroundColor: "#f8f7e5",

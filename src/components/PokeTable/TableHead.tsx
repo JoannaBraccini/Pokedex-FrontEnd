@@ -6,7 +6,7 @@ import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
 import { CatchingPokemonTwoTone } from "@mui/icons-material";
-import { Data } from "./PokeTable";
+import { Data } from ".";
 
 interface HeadCell {
   id: keyof Data;
@@ -71,7 +71,7 @@ export function PokeTableHead({
         }}
       >
         <TableCell padding="normal">
-          <CatchingPokemonTwoTone color="inherit" />
+          <CatchingPokemonTwoTone sx={{ color: "#D32F2F" }} />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell

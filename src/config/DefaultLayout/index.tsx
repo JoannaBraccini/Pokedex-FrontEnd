@@ -7,9 +7,7 @@ export function DefaultLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <Box boxShadow="0px -7px 5px 0px rgba(143, 141, 109, 0.801)" sx={style}>
-        {children}
-      </Box>
+      <Box sx={style}>{children}</Box>
       <Footer />
     </>
   );

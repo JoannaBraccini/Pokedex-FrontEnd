@@ -12,6 +12,7 @@ import { Favorite } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import { PokeTableHead } from "./TableHead";
 import { PokeCard } from "../PokeCard";
+import TutorialPopover from "../TutorialPopover";
 
 export interface Data {
   id: number;
@@ -23,6 +24,36 @@ export interface Data {
 }
 
 export type Pokedex = Pick<Data, "id" | "name" | "avatar">;
+
+//passos do tutorial
+const tableSteps = [
+  {
+    selector: "#favorite",
+    content:
+      "Clique nos corações para favoritar seus Pokémons e guardá-los na PokéDex",
+    position: { top: "20%", left: "80%" },
+  },
+  {
+    selector: "#avatar",
+    content: "Clique nas linhas para ver a foto do Pokémon selecionado",
+    position: { top: "20%", left: "80%" },
+  },
+  {
+    selector: "#search",
+    content: "Busque Pokémons específicos",
+    position: { top: "20%", left: "80%" },
+  },
+  {
+    selector: "#details",
+    content: "Veja os detalhes do Pokémon selecionado",
+    position: { top: "20%", left: "80%" },
+  },
+  {
+    selector: "#pokedex",
+    content: "Acesse seus favoritos",
+    position: { top: "20%", left: "80%" },
+  },
+];
 
 //mock para testes
 const rows: Data[] = [
@@ -234,7 +265,7 @@ export function PokeTable() {
   const [orderBy, setOrderBy] = React.useState<keyof Data>("name");
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [favorites, setFavorites] = React.useState<number[]>([]);
+  const [favorites, setFavorites] = React.useState<number[]>([]); //estado global
   const [pokedex, setPokedex] = React.useState<Pokedex>({} as Pokedex);
 
   const handleAvatarClick = (id: number, name: string, avatar: string) => {
@@ -251,10 +282,9 @@ export function PokeTable() {
   };
 
   const handleFavoriteClick = (id: number) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.includes(id)
-        ? prevFavorites.filter((favId) => favId !== id)
-        : [...prevFavorites, id]
+    //estado global
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id]
     );
   };
 
@@ -290,7 +320,13 @@ export function PokeTable() {
         paddingBottom: "3rem",
       }}
     >
+      <TutorialPopover
+        steps={tableSteps}
+        tutorialKey="tutorialSeen"
+        onFinish={() => console.log("Tutorial finalizado!")}
+      />
       <PokeCard id={pokedex.id} name={pokedex.name} avatar={pokedex.avatar} />
+      <div id="details" style={{ display: "visualy-hidden" }} />
       <Paper
         sx={{ width: { xs: "100%", md: "60%" }, mb: 2, mr: { xs: 0, md: 5 } }}
       >
@@ -300,17 +336,20 @@ export function PokeTable() {
             aria-labelledby="tableTitle"
             size="small"
           >
+            <div id="search" style={{ display: "visualy-hidden" }} />
             <PokeTableHead
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
+            <div id="pokedex" style={{ display: "visualy-hidden" }} />
+            <div id="favorite" style={{ display: "visualy-hidden" }} />
+            <div id="avatar" style={{ display: "visualy-hidden" }} />
             <TableBody>
               {visibleRows.map((row, index) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
                 const isFavorited = favorites.includes(row.id);
-
                 return (
                   <TableRow
                     hover
@@ -318,6 +357,9 @@ export function PokeTable() {
                     tabIndex={-1}
                     key={row.id}
                     sx={{ cursor: "pointer" }}
+                    onClick={() =>
+                      handleAvatarClick(row.id, row.name, row.avatar)
+                    }
                   >
                     <TableCell padding="checkbox">
                       <IconButton
@@ -336,9 +378,6 @@ export function PokeTable() {
                       scope="row"
                       padding="normal"
                       align="center"
-                      onClick={() =>
-                        handleAvatarClick(row.id, row.name, row.avatar)
-                      }
                     >
                       {row.name}
                     </TableCell>
@@ -355,6 +394,7 @@ export function PokeTable() {
                   </TableRow>
                 );
               })}
+
               {emptyRows > 0 && (
                 <TableRow
                   style={{

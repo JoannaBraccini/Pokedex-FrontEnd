@@ -1,4 +1,4 @@
-import { PokeTable } from "../components/PokeTable/PokeTable";
+import { PokeTable } from "../components/PokeTable";
 import { DefaultLayout } from "../config/DefaultLayout";
 
 export function Home() {
