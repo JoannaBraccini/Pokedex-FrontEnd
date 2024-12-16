@@ -81,7 +81,7 @@ export function PokeTableHead({
               sx={{ px: 0 }}
               onClick={() => handlePokedexOpen(favorites)}
             >
-              <Badge badgeContent={favorites.length}>
+              <Badge color="secondary" badgeContent={favorites.length}>
                 <CatchingPokemonTwoTone sx={{ color: "#D32F2F" }} />
               </Badge>
             </IconButton>

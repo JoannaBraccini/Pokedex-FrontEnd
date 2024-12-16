@@ -16,7 +16,8 @@ import {
   buttonNextStyle,
   buttonPrevStyle,
   contentBoxStyle,
-  iconButtonStyle,
+  dialogStyle,
+  closeButtonStyle,
   imgBoxStyle,
 } from "./style";
 
@@ -43,51 +44,50 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth>
+    <Dialog open={open} onClose={handleClose} fullWidth sx={dialogStyle}>
       <Box sx={boxStyle}>
-        <IconButton onClick={handleClose} sx={iconButtonStyle}>
+        <IconButton onClick={handleClose} sx={closeButtonStyle}>
           <HighlightOff />
         </IconButton>
+
+        <DialogContent>
+          {currentPokemon && (
+            <Box sx={contentBoxStyle}>
+              <img
+                src={currentPokemon.avatar}
+                alt={currentPokemon.name}
+                style={imgBoxStyle}
+              />
+            </Box>
+          )}
+          <Typography variant="h6" textAlign="center">
+            {currentPokemon
+              ? `É ${currentPokemon.name}!`
+              : "Carregando Pokémon..."}
+          </Typography>
+        </DialogContent>
+        <DialogTitle variant="button" textAlign="center">
+          {pokedex.length} favoritos
+        </DialogTitle>
+        <DialogActions>
+          <Button
+            variant="outlined"
+            onClick={handlePrev}
+            color="primary"
+            sx={buttonPrevStyle}
+          >
+            Anterior
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={handleNext}
+            color="primary"
+            sx={buttonNextStyle}
+          >
+            Próximo
+          </Button>
+        </DialogActions>
       </Box>
-      <DialogContent>
-        {currentPokemon && (
-          <Box sx={contentBoxStyle}>
-            <img
-              src={currentPokemon.avatar}
-              alt={currentPokemon.name}
-              style={imgBoxStyle}
-            />
-          </Box>
-        )}
-        <Typography variant="h6" textAlign="center">
-          {currentPokemon
-            ? `É ${currentPokemon.name}!`
-            : "Carregando Pokémon..."}
-        </Typography>
-      </DialogContent>
-      <DialogTitle variant="button" textAlign="center">
-        {pokedex.length} favoritos
-      </DialogTitle>
-      <DialogActions>
-        <Button
-          fullWidth
-          variant="outlined"
-          onClick={handlePrev}
-          color="primary"
-          sx={buttonPrevStyle}
-        >
-          Anterior
-        </Button>
-        <Button
-          fullWidth
-          variant="outlined"
-          onClick={handleNext}
-          color="primary"
-          sx={buttonNextStyle}
-        >
-          Próximo
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
