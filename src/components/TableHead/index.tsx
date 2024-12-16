@@ -6,7 +6,7 @@ import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
 import { CatchingPokemonTwoTone } from "@mui/icons-material";
-import { IconButton, Tooltip } from "@mui/material";
+import { Badge, IconButton, Tooltip } from "@mui/material";
 import { PokemonData } from "../../utils/types";
 
 interface HeadCell {
@@ -81,7 +81,9 @@ export function PokeTableHead({
               sx={{ px: 0 }}
               onClick={() => handlePokedexOpen(favorites)}
             >
-              <CatchingPokemonTwoTone sx={{ color: "#D32F2F" }} />
+              <Badge badgeContent={favorites.length}>
+                <CatchingPokemonTwoTone sx={{ color: "#D32F2F" }} />
+              </Badge>
             </IconButton>
           </Tooltip>
         </TableCell>

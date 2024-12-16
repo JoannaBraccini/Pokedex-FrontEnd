@@ -23,6 +23,7 @@ import {
   pokeMdStyle,
   pokeXsStyle,
 } from "./style.ts";
+import { Link } from "react-router";
 
 const pages = ["PokéAPI", "Documentação", "Growdev"];
 
@@ -45,7 +46,9 @@ export function Header() {
         <Toolbar disableGutters sx={{ display: "flex" }}>
           {/* menu tela grande */}
           <CatchingPokemon sx={pokeMdStyle} />
-          <Container component="img" src={logo} sx={imgMdStyle}></Container>
+          <Link to="/">
+            <Container component="img" src={logo} sx={imgMdStyle} />
+          </Link>
           {/* menu tela pequena */}
           <Box sx={boxXsStyle}>
             <Tooltip title="Menu">
@@ -83,7 +86,9 @@ export function Header() {
               ))}
             </Menu>
           </Box>
-          <Container component="img" src={logo} sx={imgXsStyle}></Container>
+          <Link to="/">
+            <Container component="img" src={logo} sx={imgXsStyle} />
+          </Link>
           <Box sx={boxMdStyle}>
             {pages.map((page) => (
               <Button key={page} onClick={handleCloseNavMenu} sx={buttonStyle}>
