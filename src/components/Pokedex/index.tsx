@@ -3,7 +3,6 @@ import {
   DialogTitle,
   DialogContent,
   Box,
-  Typography,
   DialogActions,
   Button,
   IconButton,
@@ -12,7 +11,6 @@ import { PokedexData } from "../../utils/types";
 import { HighlightOff } from "@mui/icons-material";
 import { useState } from "react";
 import {
-  boxStyle,
   buttonNextStyle,
   buttonPrevStyle,
   contentBoxStyle,
@@ -44,50 +42,53 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth sx={dialogStyle}>
-      <Box sx={boxStyle}>
+    <Dialog
+      maxWidth="md"
+      open={open}
+      onClose={handleClose}
+      fullWidth
+      sx={dialogStyle}
+    >
+      <DialogContent>
+        {currentPokemon && (
+          <img
+            src={currentPokemon.avatar}
+            alt={currentPokemon.name}
+            style={imgBoxStyle}
+          />
+        )}
         <IconButton onClick={handleClose} sx={closeButtonStyle}>
           <HighlightOff />
         </IconButton>
-
-        <DialogContent>
-          {currentPokemon && (
-            <Box sx={contentBoxStyle}>
-              <img
-                src={currentPokemon.avatar}
-                alt={currentPokemon.name}
-                style={imgBoxStyle}
-              />
-            </Box>
-          )}
-          <Typography variant="h6" textAlign="center">
-            {currentPokemon
-              ? `É ${currentPokemon.name}!`
-              : "Carregando Pokémon..."}
-          </Typography>
-        </DialogContent>
+      </DialogContent>
+      <DialogContent>
+        <DialogTitle variant="h6" textAlign="center">
+          {currentPokemon
+            ? `É ${currentPokemon.name}!`
+            : "Carregando Pokémon..."}
+        </DialogTitle>
         <DialogTitle variant="button" textAlign="center">
           {pokedex.length} favoritos
         </DialogTitle>
-        <DialogActions>
-          <Button
-            variant="outlined"
-            onClick={handlePrev}
-            color="primary"
-            sx={buttonPrevStyle}
-          >
-            Anterior
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={handleNext}
-            color="primary"
-            sx={buttonNextStyle}
-          >
-            Próximo
-          </Button>
-        </DialogActions>
-      </Box>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          variant="outlined"
+          onClick={handlePrev}
+          color="primary"
+          sx={buttonPrevStyle}
+        >
+          Anterior
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={handleNext}
+          color="primary"
+          sx={buttonNextStyle}
+        >
+          Próximo
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }

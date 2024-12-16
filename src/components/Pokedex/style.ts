@@ -2,18 +2,11 @@ import pokedex from "../../assets/pokedex.png";
 
 export const dialogStyle = {
   "& .MuiDialog-paper": {
-    backgroundColor: "transparent",
     boxShadow: "none",
+    height: "100vh",
+    background: `url(${pokedex}) no-repeat`,
+    backgroundSize: { sm: "contain" },
   },
-};
-
-export const boxStyle = {
-  backgroundImage: `url(${pokedex})`,
-  backgroundSize: "contain",
-  backgroundRepeat: "no-repeat",
-  backgroundPositionY: "center",
-  maxWidth: "100vw",
-  position: "relative",
 };
 
 export const closeButtonStyle = {
