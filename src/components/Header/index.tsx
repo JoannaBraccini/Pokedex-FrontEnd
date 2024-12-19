@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { CatchingPokemon } from "@mui/icons-material";
-import logo from "../../assets/logo.png";
+import logo from "/logo.png";
 import { SearchBar } from "../SearchBar/index.tsx";
 import {
   appStyle,

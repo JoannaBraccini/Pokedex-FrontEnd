@@ -1,6 +1,6 @@
 import { PokeTable } from "../components/PokeTable";
 import { DefaultLayout } from "../config/DefaultLayout";
-import bgPikachu from "../assets/bgPikachu.jpg";
+import bgPikachu from "/bgPikachu.jpg";
 
 export function Home() {
   return (

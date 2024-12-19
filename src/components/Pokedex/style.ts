@@ -1,4 +1,5 @@
-import pokedex from "../../assets/pokedex.png";
+import pokedex from "/pokedex.png";
+import bgPokedex from "/bgPokedex.png";
 
 export const dialogStyle = {
   "& .MuiDialog-paper": {
@@ -9,39 +10,72 @@ export const dialogStyle = {
   },
 };
 
+export const contentBoxStyle = {
+  overflow: "hidden",
+  marginTop: 22,
+  marginLeft: 3.9,
+  width: 290,
+  height: 192,
+  background: `url(${bgPokedex}) center`,
+  backgroundSize: "cover",
+  position: "relative",
+};
+
+export const imgBoxStyle = {
+  width: "22rem",
+  position: "absolute",
+  left: -30,
+  top: -50,
+};
+
 export const closeButtonStyle = {
   position: "absolute",
-  bottom: 166,
-  left: 29,
+  bottom: 175,
+  left: 53,
   color: "white",
-  transform: "scale(1.2)",
+  transform: "scale(2.3)",
   "&:hover": {
-    transform: "scale(1.5)",
+    transform: "scale(2.6)",
     transition: "transform 0.3s ease",
   },
 };
 
-export const contentBoxStyle = {
-  // marginTop: 10,
+export const boxLeftStyle = {};
+export const boxRightStyle = {
+  width: 100,
+  backgroundColor: "white",
 };
 
-export const imgBoxStyle = {
-  margin: "5rem 5rem 0 0",
-  width: "20rem",
+export const titleLeftStyle = {
+  position: "absolute",
+  bottom: 80,
+  left: 105,
+  fontSize: 16,
+  fontWeight: 600,
+  color: "white",
+  textShadow: "2px 2px 6px black",
+};
+export const titleRightStyle = {
+  position: "absolute",
+  top: 220,
+  right: 85,
+  fontSize: 35,
+  fontWeight: 600,
+  color: "white",
 };
 
 export const buttonPrevStyle = {
+  position: "absolute",
+  bottom: 90,
   color: "white",
-  // background: "linear-gradient(90deg, #ff0000,  #080808)",
-  // "&:hover": {
-  //   background: "linear-gradient(90deg, #080808, #ff0000)",
-  // },
+  right: 230,
+  width: 130,
 };
 
 export const buttonNextStyle = {
+  position: "absolute",
+  bottom: 90,
   color: "white",
-  // background: "linear-gradient(90deg, #080808, #ff0000)",
-  // "&:hover": {
-  //   background: "linear-gradient(90deg, #ff0000,  #080808)",
-  // },
+  right: 68,
+  width: 130,
 };

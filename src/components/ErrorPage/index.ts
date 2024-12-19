@@ -1,5 +1,5 @@
 import { Box, Button, styled } from "@mui/material";
-import bgPoke from "../../assets/bgPokebolaVertical.jpeg";
+import bgPoke from "/bgPokebolaVertical.jpeg";
 
 export const StyledBox = styled(Box)({
   height: "100vh",

@@ -1,4 +1,4 @@
-import bgPokedex from "../../assets/bgPokedex.png";
+import bgPokedex from "/bgPokedex.png";
 
 export const cardStyle = {
   width: 300,

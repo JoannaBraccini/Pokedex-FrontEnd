@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { Link, useParams } from "react-router";
 import { DefaultLayout } from "../config/DefaultLayout";
-import bgDex from "../assets/bgDex.jpeg";
+import bgDex from "/bgDex.jpeg";
 import { rows } from "../mock";
 
 export function Details() {

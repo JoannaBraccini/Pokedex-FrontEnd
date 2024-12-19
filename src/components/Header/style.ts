@@ -1,4 +1,4 @@
-import bgPokebola from "../../assets/bgPokebola.jpeg";
+import bgPokebola from "/bgPokebola.jpeg";
 
 export const appStyle = {
   position: "static",

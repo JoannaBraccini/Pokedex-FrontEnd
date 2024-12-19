@@ -1,4 +1,4 @@
-import pikIndica from "../../assets/pikIndica.png";
+import pikIndica from "/pikIndica.png";
 
 export const style = {
   position: "fixed",

@@ -1,39 +1,33 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Snackbar, { SnackbarCloseReason } from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
+import { Alert, Snackbar } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { hiddenAlert } from "../../store/modules/alert/AlertSlice";
 
-export default function CustomizedSnackbars() {
-  const [open, setOpen] = React.useState(false);
+export default function ToastSnackbar() {
+  const dispatch = useAppDispatch();
+  const alert = useAppSelector((state) => state.alert);
 
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (
-    _event?: React.SyntheticEvent | Event,
-    reason?: SnackbarCloseReason
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
+  function handleClose() {
+    dispatch(hiddenAlert());
+  }
 
   return (
-    <div>
-      <Button onClick={handleClick}>Open Snackbar</Button>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity="success"
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          Message
-        </Alert>
-      </Snackbar>
-    </div>
+    <Snackbar
+      open={alert.open}
+      autoHideDuration={3000}
+      onClose={handleClose}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+    >
+      <Alert
+        onClose={handleClose}
+        severity={alert.type}
+        variant="filled"
+        sx={{ width: "100%" }}
+      >
+        {alert.message}
+      </Alert>
+    </Snackbar>
   );
 }
