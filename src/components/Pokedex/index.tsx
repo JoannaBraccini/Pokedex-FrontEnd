@@ -9,7 +9,7 @@ import {
   Container,
 } from "@mui/material";
 import { PokedexData } from "../../utils/types";
-import { HighlightOff } from "@mui/icons-material";
+import { FastForward, FastRewind, HighlightOff } from "@mui/icons-material";
 import { useState } from "react";
 import {
   buttonNextStyle,
@@ -18,9 +18,9 @@ import {
   closeButtonStyle,
   imgBoxStyle,
   contentBoxStyle,
-  titleLeftStyle,
-  titleRightStyle,
   boxRightStyle,
+  favoriteTextStyle,
+  nameTextStyle,
 } from "./style";
 
 interface PokedexProps {
@@ -53,8 +53,53 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
       fullWidth
       sx={dialogStyle}
     >
-      <Container sx={{ display: "flex" }}>
-        <DialogContent>
+      <Container sx={{ display: "flex", height: "100%" }}>
+        {/* mobile*/}
+        <DialogContent sx={{ display: { xs: "block", md: "none" } }}>
+          <Box sx={contentBoxStyle}>
+            {currentPokemon && (
+              <Container
+                component="img"
+                src={currentPokemon.avatar}
+                alt={currentPokemon.name}
+                sx={imgBoxStyle}
+              />
+            )}
+          </Box>
+          <DialogActions>
+            <IconButton onClick={handleClose} sx={closeButtonStyle}>
+              <HighlightOff />
+            </IconButton>
+            <IconButton
+              onClick={handlePrev}
+              color="primary"
+              sx={buttonPrevStyle}
+            >
+              <FastRewind />
+            </IconButton>
+            <IconButton
+              onClick={handleNext}
+              color="primary"
+              sx={buttonNextStyle}
+            >
+              <FastForward />
+            </IconButton>
+          </DialogActions>
+          <Box>
+            <DialogTitle variant="button" sx={favoriteTextStyle}>
+              {pokedex.length > 1
+                ? `${pokedex.length} favoritos`
+                : `${pokedex.length} favorito`}
+            </DialogTitle>
+            <DialogTitle variant="button" sx={nameTextStyle}>
+              {currentPokemon
+                ? `${currentPokemon.name}`
+                : "Carregando Pokémon..."}
+            </DialogTitle>
+          </Box>
+        </DialogContent>
+        {/* desktop */}
+        <DialogContent sx={{ display: { xs: "none", md: "block" } }}>
           <Box sx={contentBoxStyle}>
             {currentPokemon && (
               <Container
@@ -71,15 +116,16 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
             </IconButton>
           </DialogActions>
           <Box>
-            <DialogTitle variant="button" sx={titleLeftStyle}>
-              {pokedex.length} favoritos
+            <DialogTitle variant="button" sx={favoriteTextStyle}>
+              {pokedex.length > 1
+                ? `${pokedex.length} favoritos`
+                : `${pokedex.length} favorito`}
             </DialogTitle>
           </Box>
         </DialogContent>
-
-        <DialogContent>
+        <DialogContent sx={{ display: { xs: "none", md: "block" } }}>
           <Box sx={boxRightStyle}>
-            <DialogTitle variant="button" sx={titleRightStyle}>
+            <DialogTitle variant="button" sx={nameTextStyle}>
               {currentPokemon
                 ? `${currentPokemon.name}`
                 : "Carregando Pokémon..."}
