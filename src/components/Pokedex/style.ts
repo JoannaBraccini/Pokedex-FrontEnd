@@ -5,107 +5,81 @@ import bgPokedex from "/bgPokedex.png";
 export const dialogStyle = {
   height: "100vh",
   "& .MuiDialog-paper": {
+    maxWidth: { xs: "xs", md: "md" },
+    width: { xs: 320, md: 700 },
     height: "100%",
-    width: "100%",
     boxShadow: "none",
-    margin: 1,
-    padding: 0,
+    margin: 0,
+    padding: { xs: 0, md: 8 },
     background: {
       xs: `url(${pokedexMobile}) no-repeat center`,
       md: `url(${pokedexDesktop}) no-repeat center`,
     },
-    backgroundSize: {
-      xs: "contain",
-    },
+
+    backgroundSize: { xs: "contain" },
   },
 };
 
 export const contentBoxStyle = {
-  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  justifyContet: "center",
+  alignItems: "center",
   overflow: "hidden",
   marginTop: {
-    xs: 34.1,
-    md: 22,
+    xs: "calc(50vh - 57%)",
+    sm: "calc(50vh - 60%)",
+    md: "calc(50vh - 67.6%)",
   },
-  marginLeft: {
-    xs: 1.5,
-    md: 3.9,
+  marginLeft: { xs: 1.6, sm: 0.6, md: -0.4 },
+  width: 187,
+  height: 125,
+  background: `url(${bgPokedex}) center no-repeat`,
+  backgroundSize: "contain",
+  "@media (orientation: landscape)": {
+    width: "calc(30vw - 37%)",
+    marginTop: "calc(50vh - 60%)",
+    marginLeft: "calc(20vw - 64%)",
   },
-  width: {
-    xs: 182,
-    md: 290,
-  },
-  height: {
-    xs: 122,
-    md: 192,
-  },
-  background: `url(${bgPokedex}) center`,
-  backgroundSize: "cover",
 };
 
 export const imgBoxStyle = {
-  width: {
-    xs: "14rem",
-    md: "22rem",
-  },
-  position: "absolute",
-  left: {
-    xs: -20,
-    md: -30,
-  },
-  top: {
-    xs: -30,
-    md: -50,
-  },
+  position: "relative",
+  bottom: 20,
+  width: 200,
+  height: "auto",
 };
 
 export const closeButtonStyle = {
   position: "absolute",
-  bottom: {
-    xs: "15.8rem",
-    md: "30rem",
-  },
+  bottom: 298,
+
   left: {
-    xs: "1.6rem",
-    md: "2rem",
+    xs: 38,
+    md: 94,
   },
+  width: 20,
+  height: 20,
+
   color: "white",
-  transform: {
-    xs: "scale(1.6)",
-    md: "scale(2)",
-  },
+  transform: "scale(1.6)",
   "&:hover": {
-    transform: {
-      xs: "scale(2)",
-      md: "scale(2.6)",
-    },
+    transform: "scale(2)",
     transition: "transform 0.3s ease",
   },
-};
-
-export const boxLeftStyle = {};
-export const boxRightStyle = {
-  width: 100,
-  backgroundColor: "white",
 };
 
 export const favoriteTextStyle = {
   position: "absolute",
   bottom: {
-    xs: "11.9rem",
-    md: "20rem",
+    xs: 225,
   },
   left: {
-    xs: "2.95rem",
-    md: "2rem",
+    xs: 50,
+    md: 105,
   },
   fontSize: {
     xs: 13,
-    md: 16,
-  },
-  fontWeight: {
-    xs: 500,
-    md: 600,
   },
   color: "white",
   textShadow: "2px 2px 6px black",
@@ -113,16 +87,16 @@ export const favoriteTextStyle = {
 export const nameTextStyle = {
   position: "absolute",
   top: {
-    xs: "13.8rem",
-    md: "2rem",
+    xs: 256,
+    md: 300,
   },
-  right: {
-    xs: "2rem",
-    md: "2rem",
+  left: {
+    xs: 120,
+    md: 390,
   },
   fontSize: {
     xs: 18,
-    md: 35,
+    md: 30,
   },
   fontWeight: 600,
   color: "white",
@@ -131,33 +105,33 @@ export const nameTextStyle = {
 export const buttonPrevStyle = {
   position: "absolute",
   bottom: {
-    xs: "14.2rem",
-    md: "20rem",
+    xs: 261,
+    md: 193,
   },
   right: {
-    xs: "6.75rem",
-    md: "20rem",
+    xs: 109,
+    md: 203,
   },
   color: "white",
   width: {
-    xs: "10px",
-    md: 130,
+    xs: 10,
+    md: "auto",
   },
 };
 
 export const buttonNextStyle = {
   position: "absolute",
   bottom: {
-    xs: "14.2rem",
-    md: "20rem",
+    xs: 261,
+    md: 193,
   },
   right: {
-    xs: "3.9rem",
-    md: "20rem",
+    xs: 64,
+    md: 98,
   },
   color: "white",
   width: {
-    xs: "10px",
-    md: 130,
+    xs: 10,
+    md: "auto",
   },
 };
