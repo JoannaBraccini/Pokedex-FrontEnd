@@ -1,137 +1,121 @@
-import pokedexDesktop from "/pokedex.png";
 import pokedexMobile from "/pokedexLeft.png";
 import bgPokedex from "/bgPokedex.png";
 
+const displayCenter = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
+
 export const dialogStyle = {
   height: "100vh",
+  margin: "auto",
   "& .MuiDialog-paper": {
-    maxWidth: { xs: "xs", md: "md" },
-    width: { xs: 320, md: 700 },
+    background: "transparent",
+    width: "100%",
     height: "100%",
     boxShadow: "none",
-    margin: 0,
-    padding: { xs: 0, md: 8 },
-    background: {
-      xs: `url(${pokedexMobile}) no-repeat center`,
-      md: `url(${pokedexDesktop}) no-repeat center`,
-    },
-
-    backgroundSize: { xs: "contain" },
+    margin: "auto",
+    overflow: "hidden",
   },
 };
 
-export const contentBoxStyle = {
-  display: "flex",
+export const CardStyle = {
+  ...displayCenter,
+  background: `url(${pokedexMobile}) no-repeat center`,
+  backgroundSize: { xs: "contain" },
   flexDirection: "column",
-  justifyContet: "center",
-  alignItems: "center",
-  overflow: "hidden",
-  marginTop: {
-    xs: "calc(50vh - 57%)",
-    sm: "calc(50vh - 60%)",
-    md: "calc(50vh - 67.6%)",
-  },
-  marginLeft: { xs: 1.6, sm: 0.6, md: -0.4 },
-  width: 187,
-  height: 125,
-  background: `url(${bgPokedex}) center no-repeat`,
-  backgroundSize: "contain",
-  "@media (orientation: landscape)": {
-    width: "calc(30vw - 37%)",
-    marginTop: "calc(50vh - 60%)",
-    marginLeft: "calc(20vw - 64%)",
-  },
+  justifyContent: "start",
+  height: "100%",
 };
 
-export const imgBoxStyle = {
-  position: "relative",
-  bottom: 20,
-  width: 200,
-  height: "auto",
+export const headerStyle = {
+  fontSize: {
+    xs: "1rem",
+    sm: "1.3rem",
+    xm: "3rem",
+    md: "1.6rem",
+    lg: "3rem",
+    xl: "3rem",
+    xxl: "3rem",
+  },
+  fontWeight: 600,
+  color: "white",
+  padding: 0,
+  marginLeft: 10,
+  marginTop: 16,
+  marginBottom: 4,
+
+  outline: "5px solid black",
+};
+
+export const mediaBoxStyle = {
+  ...displayCenter,
+  background: `url(${bgPokedex}) center no-repeat`,
+  backgroundSize: { xs: "contain", sm: "cover" },
+  height: {
+    xs: "8rem",
+    sm: "10rem",
+    xm: "10rem",
+    md: "10rem",
+    lg: "12rem",
+    xl: "10rem",
+    xxl: "10rem",
+  },
+  width: "100%",
+  marginRight: { xs: 3.5 },
+
+  // outline: "5px solid purple",
+};
+
+export const mediaStyle = {
+  height: "140%",
+  width: "auto",
+};
+
+export const actionsStyle = {
+  ...displayCenter,
+  justifyContent: "space-between",
+  width: "100%",
+
+  outline: "5px solid gray",
+};
+
+export const boxCloseStyle = {
+  marginLeft: { xs: -0.3 },
+  paddingTop: { xs: 1.7 },
 };
 
 export const closeButtonStyle = {
-  position: "absolute",
-  bottom: 298,
-
-  left: {
-    xs: 38,
-    md: 94,
-  },
-  width: 20,
-  height: 20,
-
   color: "white",
-  transform: "scale(1.6)",
+  transform: { xs: "scale(1.5)", sm: "scale(1.8)", lg: "scale(2.3)" },
   "&:hover": {
-    transform: "scale(2)",
+    transform: { xs: "scale(1.8)", sm: "scale(2.5)" },
     transition: "transform 0.3s ease",
   },
 };
 
-export const favoriteTextStyle = {
-  position: "absolute",
-  bottom: {
-    xs: 225,
-  },
-  left: {
-    xs: 50,
-    md: 105,
-  },
-  fontSize: {
-    xs: 13,
-  },
-  color: "white",
-  textShadow: "2px 2px 6px black",
-};
-export const nameTextStyle = {
-  position: "absolute",
-  top: {
-    xs: 256,
-    md: 300,
-  },
-  left: {
-    xs: 120,
-    md: 390,
-  },
-  fontSize: {
-    xs: 18,
-    md: 30,
-  },
-  fontWeight: 600,
-  color: "white",
+export const boxButtonsStyle = {
+  paddingTop: { xs: 8.4 },
+  paddingLeft: 3,
+  display: "flex",
+  gap: 1,
+
+  outline: "5px solid purple",
 };
 
 export const buttonPrevStyle = {
-  position: "absolute",
-  bottom: {
-    xs: 261,
-    md: 193,
-  },
-  right: {
-    xs: 109,
-    md: 203,
-  },
   color: "white",
-  width: {
-    xs: 10,
-    md: "auto",
-  },
 };
 
 export const buttonNextStyle = {
-  position: "absolute",
-  bottom: {
-    xs: 261,
-    md: 193,
-  },
-  right: {
-    xs: 64,
-    md: 98,
-  },
   color: "white",
-  width: {
-    xs: 10,
-    md: "auto",
-  },
+};
+
+export const cardContentStyle = {
+  outline: "5px solid blue",
+  textAlign: "center",
+  fontSize: { xs: "1rem", sm: "1.2rem", lg: "1.5rem" },
+  color: "white",
+  paddingBottom: { xs: "1rem", sm: "2rem" },
 };

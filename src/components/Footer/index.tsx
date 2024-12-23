@@ -10,7 +10,12 @@ import { appStyle, copyStyle, typoSM, typoXS } from "./style";
 export function Footer() {
   return (
     <AppBar sx={appStyle}>
-      <Toolbar>
+      <Toolbar
+        sx={{
+          maxWidth: "xl",
+          mx: "auto",
+        }}
+      >
         <IconButton color="inherit" aria-label="social">
           <SocialMenu />
         </IconButton>

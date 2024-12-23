@@ -1,13 +1,15 @@
 export const boxStyle = {
   width: "100%",
+  maxWidth: "2000px",
   display: "flex",
+  margin: "auto",
   flexDirection: { xs: "column", md: "row" },
   justifyContent: "space-between",
   paddingBottom: "3rem",
 };
 
 export const paperStyle = {
-  width: { xs: "100%", md: "60%" },
+  width: { xs: "100%", md: "60%", lg: "80%", xl: "100%" },
   mb: 2,
   mr: { xs: 0, md: 5 },
 };

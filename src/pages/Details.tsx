@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router";
 import { DefaultLayout } from "../config/DefaultLayout";
 import bgDex from "/bgDex.jpeg";
 import { rows } from "../mock";
+import ToastSnackbar from "../components/ToastSnackbar";
 
 export function Details() {
   // Pegando o parâmetro 'id' da URL, convertendo para número
@@ -24,6 +25,7 @@ export function Details() {
       <Link to={"/"}>
         <Button variant="contained">Voltar à tela inicial</Button>
       </Link>
+      <ToastSnackbar />
     </DefaultLayout>
   );
 }

@@ -2,6 +2,7 @@ import { Box, Button, styled } from "@mui/material";
 import bgPoke from "/bgPokebolaVertical.jpeg";
 
 export const StyledBox = styled(Box)({
+  maxWidth: "xl",
   height: "100vh",
   background: `url(${bgPoke}) center`,
   backgroundSize: "cover",

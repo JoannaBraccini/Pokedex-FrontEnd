@@ -25,6 +25,8 @@ import {
   pokedexStyle,
   searchStyle,
 } from "./style";
+import { useAppDispatch } from "../../store/hooks";
+import { showAlert } from "../../store/modules/alert/AlertSlice";
 
 //passos do tutorial
 const tableSteps = [
@@ -73,6 +75,7 @@ function getComparator<Key extends keyof PokemonData>(
 }
 
 export function PokeTable() {
+  const dispatch = useAppDispatch();
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof PokemonData>("name");
   const [page, setPage] = React.useState(0);
@@ -87,7 +90,9 @@ export function PokeTable() {
   const handlePokedexOpen = () => {
     // Filtra os Pokémon favoritos presentes na Pokedex
     if (favorites.length === 0) {
-      console.warn("Nenhum Pokémon favoritado!");
+      dispatch(
+        showAlert({ message: "Nenhum Pokémon favoritado!", type: "error" })
+      );
       return;
     }
 
@@ -117,7 +122,7 @@ export function PokeTable() {
   };
 
   const handleFavoriteClick = (id: number) => {
-    //estado global
+    //fazer estado global
     setFavorites((prev) => {
       const newFavorites = prev.includes(id)
         ? prev.filter((favId) => favId !== id) // Desfavorita

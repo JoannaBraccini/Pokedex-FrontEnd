@@ -1,26 +1,26 @@
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  IconButton,
-  Box,
-  Container,
-} from "@mui/material";
-import { PokedexData } from "../../utils/types";
-import { FastForward, FastRewind, HighlightOff } from "@mui/icons-material";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import { Dialog } from "@mui/material";
 import {
+  actionsStyle,
   buttonNextStyle,
   buttonPrevStyle,
-  dialogStyle,
+  cardContentStyle,
+  CardStyle,
   closeButtonStyle,
-  imgBoxStyle,
-  contentBoxStyle,
-  favoriteTextStyle,
-  nameTextStyle,
+  dialogStyle,
+  headerStyle,
+  mediaBoxStyle,
+  mediaStyle,
 } from "./style";
+import { PokedexData } from "../../utils/types";
+import { FastForward, FastRewind, HighlightOff } from "@mui/icons-material";
 
 interface PokedexProps {
   open: boolean;
@@ -46,102 +46,36 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth sx={dialogStyle}>
-      <Container sx={{ display: "flex", height: "100%" }}>
-        {/* mobile*/}
-        <DialogContent sx={{ display: { xs: "block", md: "none" } }}>
-          <Box sx={contentBoxStyle}>
-            {currentPokemon && (
-              <Container
-                component="img"
-                src={currentPokemon.avatar}
-                alt={currentPokemon.name}
-                sx={imgBoxStyle}
-              />
-            )}
-          </Box>
-          <DialogActions>
-            <IconButton onClick={handleClose} sx={closeButtonStyle}>
-              <HighlightOff />
-            </IconButton>
-            <IconButton
-              onClick={handlePrev}
-              color="primary"
-              sx={buttonPrevStyle}
-            >
-              <FastRewind />
-            </IconButton>
-            <IconButton
-              onClick={handleNext}
-              color="primary"
-              sx={buttonNextStyle}
-            >
-              <FastForward />
-            </IconButton>
-          </DialogActions>
-          <Box>
-            <DialogTitle variant="button" sx={favoriteTextStyle}>
-              {pokedex.length > 1
-                ? `${pokedex.length}\nfavoritos`
-                : `${pokedex.length}\nfavorito`}
-            </DialogTitle>
-            <DialogTitle variant="button" sx={nameTextStyle}>
-              {currentPokemon
-                ? `${currentPokemon.name}`
-                : "Carregando Pokémon..."}
-            </DialogTitle>
-          </Box>
-        </DialogContent>
-        {/* desktop */}
-        <DialogContent sx={{ display: { xs: "none", md: "block" } }}>
-          <Box sx={contentBoxStyle}>
-            {currentPokemon && (
-              <Container
-                component="img"
-                src={currentPokemon.avatar}
-                alt={currentPokemon.name}
-                sx={imgBoxStyle}
-              />
-            )}
-          </Box>
-          <DialogActions>
-            <IconButton onClick={handleClose} sx={closeButtonStyle}>
-              <HighlightOff />
-            </IconButton>
-          </DialogActions>
-          <DialogTitle variant="button" sx={favoriteTextStyle}>
+      {/* <Card sx={{ maxWidth: 345 }}> */}
+      <Card sx={CardStyle}>
+        <CardHeader sx={headerStyle} title={`${currentPokemon?.name}`} />
+        <CardMedia sx={mediaBoxStyle}>
+          <CardMedia
+            component="img"
+            sx={mediaStyle}
+            src={currentPokemon?.avatar}
+            alt={currentPokemon?.name}
+          />
+        </CardMedia>
+        <CardActions disableSpacing sx={actionsStyle}>
+          <IconButton onClick={handleClose} sx={closeButtonStyle}>
+            <HighlightOff />
+          </IconButton>
+          <IconButton onClick={handlePrev} color="primary" sx={buttonPrevStyle}>
+            <FastRewind />
+          </IconButton>
+          <IconButton onClick={handleNext} color="primary" sx={buttonNextStyle}>
+            <FastForward />
+          </IconButton>
+        </CardActions>
+        <CardContent>
+          <Typography sx={cardContentStyle}>
             {pokedex.length > 1
-              ? `${pokedex.length} favoritos`
-              : `${pokedex.length} favorito`}
-          </DialogTitle>
-        </DialogContent>
-        <DialogContent sx={{ display: { xs: "none", md: "block" } }}>
-          <DialogTitle variant="button" sx={nameTextStyle}>
-            {currentPokemon
-              ? `${currentPokemon.name}`
-              : "Carregando Pokémon..."}
-          </DialogTitle>
-          <DialogActions>
-            <Button
-              variant="text"
-              size="large"
-              onClick={handlePrev}
-              color="primary"
-              sx={buttonPrevStyle}
-            >
-              Anterior
-            </Button>
-            <Button
-              variant="text"
-              size="large"
-              onClick={handleNext}
-              color="primary"
-              sx={buttonNextStyle}
-            >
-              Próximo
-            </Button>
-          </DialogActions>
-        </DialogContent>
-      </Container>
+              ? `${pokedex.length}\nfavoritos`
+              : `${pokedex.length}\nfavorito`}
+          </Typography>
+        </CardContent>
+      </Card>
     </Dialog>
   );
 }

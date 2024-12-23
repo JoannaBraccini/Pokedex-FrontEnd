@@ -1,6 +1,6 @@
 import * as React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import { IconButton, Link } from "@mui/material";
+import { Container, IconButton, Link } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { linkStyle, socialButtonStyle, style } from "./style";
@@ -11,7 +11,7 @@ export function SocialMenu() {
   const handleCloseModal = () => setOpenModal(false);
 
   return (
-    <div>
+    <Container>
       <IconButton id="social-button" color="inherit" onClick={handleOpenModal}>
         <MenuIcon />
       </IconButton>
@@ -38,6 +38,6 @@ export function SocialMenu() {
           </Box>
         </Box>
       </Modal>
-    </div>
+    </Container>
   );
 }
