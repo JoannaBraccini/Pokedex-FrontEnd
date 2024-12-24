@@ -6,18 +6,19 @@ import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import { Dialog } from "@mui/material";
+import { CardActionArea, Dialog } from "@mui/material";
 import {
   actionsStyle,
-  buttonNextStyle,
-  buttonPrevStyle,
-  cardContentStyle,
+  skipButtonStyle,
+  favoriteStyle,
   CardStyle,
+  closeAreaStyle,
   closeButtonStyle,
   dialogStyle,
   headerStyle,
   mediaBoxStyle,
   mediaStyle,
+  skipAreaStyle,
 } from "./style";
 import { PokedexData } from "../../utils/types";
 import { FastForward, FastRewind, HighlightOff } from "@mui/icons-material";
@@ -46,9 +47,15 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth sx={dialogStyle}>
-      {/* <Card sx={{ maxWidth: 345 }}> */}
       <Card sx={CardStyle}>
-        <CardHeader sx={headerStyle} title={`${currentPokemon?.name}`} />
+        <CardHeader
+          sx={headerStyle}
+          titleTypographyProps={{
+            fontSize: { xs: 20, sm: 30 },
+            fontWeight: 600,
+          }}
+          title={`${currentPokemon?.name}`}
+        />
         <CardMedia sx={mediaBoxStyle}>
           <CardMedia
             component="img"
@@ -58,18 +65,30 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
           />
         </CardMedia>
         <CardActions disableSpacing sx={actionsStyle}>
-          <IconButton onClick={handleClose} sx={closeButtonStyle}>
-            <HighlightOff />
-          </IconButton>
-          <IconButton onClick={handlePrev} color="primary" sx={buttonPrevStyle}>
-            <FastRewind />
-          </IconButton>
-          <IconButton onClick={handleNext} color="primary" sx={buttonNextStyle}>
-            <FastForward />
-          </IconButton>
+          <CardActionArea sx={closeAreaStyle}>
+            <IconButton onClick={handleClose} sx={closeButtonStyle}>
+              <HighlightOff />
+            </IconButton>
+          </CardActionArea>
+          <CardActionArea sx={skipAreaStyle}>
+            <IconButton
+              onClick={handlePrev}
+              color="primary"
+              sx={skipButtonStyle}
+            >
+              <FastRewind />
+            </IconButton>
+            <IconButton
+              onClick={handleNext}
+              color="primary"
+              sx={skipButtonStyle}
+            >
+              <FastForward />
+            </IconButton>
+          </CardActionArea>
         </CardActions>
         <CardContent>
-          <Typography sx={cardContentStyle}>
+          <Typography variant="button" sx={favoriteStyle}>
             {pokedex.length > 1
               ? `${pokedex.length}\nfavoritos`
               : `${pokedex.length}\nfavorito`}

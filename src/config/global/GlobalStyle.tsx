@@ -11,9 +11,10 @@ const styles: Record<string, CSSObject> = {
   body: {
     display: "flex",
     flexDirection: "column",
-    height: "100vh",
+    minHeight: "100vh",
     backgroundColor: "#FFC801",
     zIndex: -10,
+    overflow: "hidden",
   },
 };
 export function GlobalStyle() {
