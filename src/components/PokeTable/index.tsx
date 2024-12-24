@@ -14,7 +14,6 @@ import { PokeTableHead } from "../TableHead";
 import { PokeCard } from "../PokeCard";
 import TutorialPopover from "../TutorialPopover";
 import { Pokedex } from "../Pokedex";
-import { PokemonData, PokedexData } from "../../utils/types";
 import { rows } from "../../mock";
 import {
   avatarStyle,
@@ -27,6 +26,10 @@ import {
 } from "./style";
 import { useAppDispatch } from "../../store/hooks";
 import { showAlert } from "../../store/modules/alert/AlertSlice";
+import {
+  PokedexData,
+  PokemonData,
+} from "../../store/modules/pokemon/pokemonTypes";
 
 //passos do tutorial
 const tableSteps = [

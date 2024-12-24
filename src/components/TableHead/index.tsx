@@ -7,7 +7,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
 import { CatchingPokemonTwoTone } from "@mui/icons-material";
 import { Badge, IconButton, Tooltip } from "@mui/material";
-import { PokemonData } from "../../utils/types";
+import { PokemonData } from "../../store/modules/pokemon/pokemonTypes";
 
 interface HeadCell {
   id: keyof PokemonData;
@@ -15,7 +15,7 @@ interface HeadCell {
   numeric: boolean;
 }
 
-const headCells: readonly HeadCell[] = [
+const headCellList: readonly HeadCell[] = [
   {
     id: "name",
     numeric: false,
@@ -32,7 +32,7 @@ const headCells: readonly HeadCell[] = [
     label: "Peso",
   },
   {
-    id: "abilities",
+    id: "abilitiesCount",
     numeric: true,
     label: "Habilidades",
   },
@@ -42,6 +42,12 @@ const headCells: readonly HeadCell[] = [
     label: "Avatar",
   },
 ];
+
+const headCells = headCellList.map((headCell) =>
+  headCell.id === "abilitiesCount"
+    ? { ...headCell, id: "abilities" as keyof PokemonData }
+    : headCell
+);
 
 interface PokeTableHeadProps {
   onRequestSort: (

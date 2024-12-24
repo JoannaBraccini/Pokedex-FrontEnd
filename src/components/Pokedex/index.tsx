@@ -20,8 +20,8 @@ import {
   mediaStyle,
   skipAreaStyle,
 } from "./style";
-import { PokedexData } from "../../utils/types";
 import { FastForward, FastRewind, HighlightOff } from "@mui/icons-material";
+import { PokedexData } from "../../store/modules/pokemon/pokemonTypes";
 
 interface PokedexProps {
   open: boolean;
