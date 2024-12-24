@@ -26,10 +26,7 @@ import {
 } from "./style";
 import { useAppDispatch } from "../../store/hooks";
 import { showAlert } from "../../store/modules/alert/AlertSlice";
-import {
-  PokedexData,
-  PokemonData,
-} from "../../store/modules/pokemon/pokemonTypes";
+import { PokedexData, PokemonData } from "../../store/modules/pokemon/pokemon";
 
 //passos do tutorial
 const tableSteps = [

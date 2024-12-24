@@ -1,12 +1,3 @@
-export interface PaginatedResponse<T> {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: T[];
-}
-
-export type GetAllPokemonResponse = PaginatedResponse<PokemonSummary>;
-
 interface Ability {
   ability: {
     name: string;
@@ -35,6 +26,18 @@ interface Sprite {
   };
 }
 
+interface PokemonSummary {
+  name: string;
+  url: string;
+}
+
+export interface PokemonList {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: PokemonSummary[];
+}
+
 export interface Pokemon {
   id: number;
   name: string;
@@ -45,11 +48,6 @@ export interface Pokemon {
   abilities: Ability[];
   stats: Stat[];
   types: Type[];
-}
-
-interface PokemonSummary {
-  name: string;
-  url: string;
 }
 
 export interface PokemonData {

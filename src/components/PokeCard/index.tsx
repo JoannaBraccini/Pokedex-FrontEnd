@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import { buttonStyle, cardMediaStyle, cardStyle } from "./style";
 import { useAppDispatch } from "../../store/hooks";
 import { showAlert } from "../../store/modules/alert/AlertSlice";
-import { PokedexData } from "../../store/modules/pokemon/pokemonTypes";
+import { PokedexData } from "../../store/modules/pokemon/pokemon";
 
 export function PokeCard({ id, name, avatar }: PokedexData) {
   const navigate = useNavigate();

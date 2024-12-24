@@ -7,7 +7,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
 import { CatchingPokemonTwoTone } from "@mui/icons-material";
 import { Badge, IconButton, Tooltip } from "@mui/material";
-import { PokemonData } from "../../store/modules/pokemon/pokemonTypes";
+import { PokemonData } from "../../store/modules/pokemon/pokemon";
 
 interface HeadCell {
   id: keyof PokemonData;

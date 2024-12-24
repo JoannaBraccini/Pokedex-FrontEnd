@@ -1,22 +1,54 @@
-import { GetAllPokemonResponse } from "../../store/modules/pokemon/pokemonTypes";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Pokemon, PokemonList } from "../utils/types/pokemon";
+import { QueryPaginationRequest } from "../utils/types";
 import { api, ResponseAPI } from "./api.service";
 
-export async function fetchAllPokemonService(): Promise<
-  ResponseAPI<GetAllPokemonResponse>
-> {
+export async function getAllPokemonService(
+  query: QueryPaginationRequest = { limit: 20, offset: 0 }
+): Promise<ResponseAPI<PokemonList>> {
+  const params = new URLSearchParams();
+
+  params.set("limit", String(query.limit));
+  params.set("offset", String(query.offset));
+
   try {
-    const response = await api.get("/pokemon");
+    const response = await api.get("/pokemon", { params });
+    return {
+      ok: true,
+      message: "Pokémons carregados com sucesso.",
+      data: response.data,
+    };
+  } catch (error: any) {
+    console.error(
+      "Erro ao buscar pokémons:",
+      error.response?.data || error.message
+    );
+    return {
+      ok: false,
+      message: "Não foi possível buscar a lista de pokémons.",
+    };
+  }
+}
+
+export async function getOnePokemonService(
+  name: string
+): Promise<ResponseAPI<Pokemon>> {
+  try {
+    const response = await api.get(`/pokemon/${name}`);
 
     return {
-      ok: response.data.ok,
-      message: response.data.message,
-      data: response.data.data,
+      ok: true,
+      message: "Pokémon carregado com sucesso.",
+      data: response.data,
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
+    console.error(
+      "Erro ao buscar pokémons:",
+      error.response?.data || error.message
+    );
     return {
-      ok: error.response.data.ok,
-      message: error.response.data.message,
+      ok: false,
+      message: "Não foi possível buscar os detalhes do pokémon.",
     };
   }
 }
