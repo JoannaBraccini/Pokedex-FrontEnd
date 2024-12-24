@@ -37,8 +37,8 @@ export const CardStyle = {
 export const headerStyle = {
   color: "white",
   position: "absolute",
-  top: { xs: "20%", sm: "15%", lg: "14%" },
-  right: { xs: "15%", md: "22%", lg: "25%" },
+  top: { xs: "20%", sm: "15%", lg: "14%", xl: "12%" },
+  right: { xs: "15%", md: "22%", lg: "25%", xl: "28%" },
 };
 
 export const mediaBoxStyle = {
@@ -52,7 +52,7 @@ export const mediaBoxStyle = {
   width: "100%",
   position: "absolute",
   top: { xs: "32%", sm: "30%" },
-  right: { xs: "4.3%", md: "3.3%" },
+  right: { xs: "4.3%", md: "3.3%", xl: "2.5%" },
 };
 
 export const mediaStyle = {
@@ -66,12 +66,12 @@ export const mediaStyle = {
 export const actionsStyle = {
   ...displayCenter,
   justifyContent: "space-between",
-  width: { xs: "85%", sm: "81%", md: "65%", lg: "57%", xl: "65%" },
+  width: { xs: "85%", sm: "81%", md: "65%", lg: "57%", xl: "51%" },
 };
 
 export const closeAreaStyle = {
   position: "absolute",
-  bottom: { xs: "25%", sm: "23%", md: "22%" },
+  bottom: { xs: "25%", sm: "23%", md: "22%", xl: "21%" },
 };
 
 export const closeButtonStyle = {
@@ -79,13 +79,13 @@ export const closeButtonStyle = {
   transform: {
     xs: "scale(2)",
     sm: "scale(2.5)",
-    lg: "scale(2)",
-    xl: "scale(2.5)",
+    lg: "scale(1.8)",
   },
   "&:hover": {
     transform: {
       xs: "scale(2.3)",
       sm: "scale(2.8)",
+      xl: "scale(2.1)",
     },
     transition: "transform 0.3s ease",
   },
@@ -93,26 +93,25 @@ export const closeButtonStyle = {
 
 export const skipAreaStyle = {
   ...displayCenter,
-  gap: { xs: 1.3, sm: 3, md: 4, lg: 3 },
+  gap: { xs: 1.3, sm: 3, md: 4, lg: 3, xl: 1.5 },
   position: "absolute",
-  bottom: { xs: "19.8%", sm: "18%", md: "16%" },
-  left: { xs: "20.5%", md: "16.5%", lg: "14.5%", xl: "16.5%" },
+  bottom: { xs: "19.8%", sm: "18%", md: "16%", xl: "15%" },
+  left: { xs: "20.5%", md: "16.5%", lg: "14.5%", xl: "12.5%" },
 };
 
 export const skipButtonStyle = {
   color: "white",
-  transform: { sm: "scale(1.4)", lg: "scale(1)", xl: "scale(1.2)" },
+  transform: { sm: "scale(1.4)", lg: "scale(1)" },
 };
 
 export const favoriteStyle = {
   position: "absolute",
   bottom: { xs: "15%", sm: "12%", md: "10%" },
-  left: { xs: "23%", md: "28%", lg: "31%", xl: "28%" },
+  left: { xs: "23%", md: "28%", lg: "31%", xl: "34%" },
   color: "white",
   fontSize: {
     xs: "0.9rem",
     sm: "1.2rem",
     lg: "1rem",
-    xl: "1.2rem",
   },
 };

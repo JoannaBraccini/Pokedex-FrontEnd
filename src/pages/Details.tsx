@@ -6,10 +6,7 @@ import { rows } from "../mock";
 import ToastSnackbar from "../components/ToastSnackbar";
 
 export function Details() {
-  // Pegando o parâmetro 'id' da URL, convertendo para número
   const { id } = useParams<{ id: string }>();
-  // Convertendo o id de string para número
-  // const pokemonId = id ? parseInt(id, 10) : NaN;
 
   const pokemon = rows.find((p) => p.id === Number(id));
 

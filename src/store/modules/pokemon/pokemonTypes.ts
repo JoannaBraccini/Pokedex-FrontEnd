@@ -1,3 +1,12 @@
+export interface PaginatedResponse<T> {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
+}
+
+export type GetAllPokemonResponse = PaginatedResponse<PokemonSummary>;
+
 interface Ability {
   ability: {
     name: string;
@@ -19,8 +28,10 @@ interface Type {
 }
 
 interface Sprite {
-  officialArtwork: {
-    frontDefault: string;
+  other: {
+    "official-artwork": {
+      front_default: string;
+    };
   };
 }
 
@@ -41,12 +52,16 @@ interface PokemonSummary {
   url: string;
 }
 
-export interface GetAllResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: PokemonSummary[];
+export interface PokemonData {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+  abilitiesCount: number;
+  avatar: string; //home>front>default
 }
+
+export type PokedexData = Pick<PokemonData, "id" | "name" | "avatar">;
 
 //se 'results' in response => response.results.map(p => p.name) é um getAll
 //senão é um getId para detalhes: response.name...

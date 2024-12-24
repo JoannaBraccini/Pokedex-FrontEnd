@@ -51,7 +51,7 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
         <CardHeader
           sx={headerStyle}
           titleTypographyProps={{
-            fontSize: { xs: 20, sm: 30 },
+            fontSize: { xs: 20, sm: 30, xl: 25 },
             fontWeight: 600,
           }}
           title={`${currentPokemon?.name}`}
