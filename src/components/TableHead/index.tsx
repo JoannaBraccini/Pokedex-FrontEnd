@@ -8,6 +8,7 @@ import { visuallyHidden } from "@mui/utils";
 import { CatchingPokemonTwoTone } from "@mui/icons-material";
 import { Badge, IconButton, Tooltip } from "@mui/material";
 import { PokemonData } from "../../config/utils/types";
+import { useAppSelector } from "../../store/hooks";
 
 interface HeadCell {
   id: keyof PokemonData;
@@ -58,17 +59,17 @@ interface PokeTableHeadProps {
   order: "asc" | "desc";
   orderBy: string;
   rowCount: number;
-  favorites: number[];
-  handlePokedexOpen: (favorites: number[]) => void;
+  handlePokedexOpen: () => void;
 }
 
 export function PokeTableHead({
   order,
   orderBy,
   onRequestSort,
-  favorites,
   handlePokedexOpen,
 }: PokeTableHeadProps) {
+  const favorites = useAppSelector((state) => state.favorites);
+
   const createSortHandler =
     (property: keyof PokemonData) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
@@ -84,10 +85,7 @@ export function PokeTableHead({
       >
         <TableCell padding="normal">
           <Tooltip title="pokéDex">
-            <IconButton
-              sx={{ px: 0 }}
-              onClick={() => handlePokedexOpen(favorites)}
-            >
+            <IconButton sx={{ px: 0 }} onClick={() => handlePokedexOpen()}>
               <Badge color="secondary" badgeContent={favorites.length}>
                 <CatchingPokemonTwoTone sx={{ color: "#D32F2F" }} />
               </Badge>

@@ -15,7 +15,7 @@ import { rootReducer } from "./modules/rootReducer";
 const persistConfig = {
   key: "mui-app-key",
   storage,
-  //   whitelist: [],
+  whitelist: ["favorites"],
   //   blacklist: [],
 };
 

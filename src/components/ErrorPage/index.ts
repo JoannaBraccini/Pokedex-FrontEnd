@@ -33,32 +33,9 @@ export const PokeButton = styled(Button)({
   borderRadius: "50%",
   border: "8px solid black",
   boxShadow: "inset -16px -8px 0 0 rgba(0, 0, 0, 0.2)",
-  animation:
-    "fall 0.5s ease-in-out 1s, shake 1.25s cubic-bezier(0.36, 0.07, 0.19, 0.97) 1.5s 3, catch 0.5s ease-out 5.25s forwards",
+  animation: "fall 0.5s ease-in-out 1s, bounce 1s ease-in-out infinite",
   "&:hover": {
     cursor: "pointer", // Para adicionar interatividade
-  },
-
-  // Keyframe de animação shake
-  "@keyframes shake": {
-    "0%": {
-      transform: "translateX(0) rotate(0)",
-    },
-    "20%": {
-      transform: "translateX(-10px) rotate(-20deg)",
-    },
-    "30%": {
-      transform: "translateX(10px) rotate(20deg)",
-    },
-    "50%": {
-      transform: "translateX(-10px) rotate(-10deg)",
-    },
-    "60%": {
-      transform: "translateX(10px) rotate(10deg)",
-    },
-    "100%": {
-      transform: "translateX(0) rotate(0)",
-    },
   },
 
   // Keyframe de animação fall
@@ -77,10 +54,25 @@ export const PokeButton = styled(Button)({
     },
   },
 
-  // Keyframe de animação catch
-  "@keyframes catch": {
-    to: {
-      filter: "saturate(0.8) brightness(0.8)",
+  // Keyframe de animação de quique
+  "@keyframes bounce": {
+    "0%": {
+      transform: "translateY(0)",
+    },
+    "20%": {
+      transform: "translateY(-30px)",
+    },
+    "40%": {
+      transform: "translateY(15px)",
+    },
+    "60%": {
+      transform: "translateY(-15px)",
+    },
+    "80%": {
+      transform: "translateY(5px)",
+    },
+    "100%": {
+      transform: "translateY(0)",
     },
   },
 });

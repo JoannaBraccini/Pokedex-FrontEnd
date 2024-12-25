@@ -12,6 +12,8 @@ export async function getAllPokemonService(
   params.set("offset", String(query.offset));
 
   try {
+    console.log("fazendo busca no service");
+
     const response = await api.get("/pokemon", { params });
     return {
       ok: true,
