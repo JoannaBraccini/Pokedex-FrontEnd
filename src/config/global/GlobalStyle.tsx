@@ -1,4 +1,4 @@
-import { CssBaseline, GlobalStyles, CSSObject } from "@mui/material";
+import { GlobalStyles, CSSObject } from "@mui/material";
 import "@fontsource/poppins/300.css";
 import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/500.css";
@@ -6,6 +6,9 @@ import "@fontsource/poppins/700.css";
 
 const styles: Record<string, CSSObject> = {
   "*": {
+    margin: 0,
+    padding: 0,
+    boxSizing: "border-box",
     fontFamily: "Poppins, sans-serif",
   },
   body: {
@@ -18,10 +21,5 @@ const styles: Record<string, CSSObject> = {
   },
 };
 export function GlobalStyle() {
-  return (
-    <>
-      <CssBaseline />
-      <GlobalStyles styles={styles} />
-    </>
-  );
+  return <GlobalStyles styles={styles} />;
 }
