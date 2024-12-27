@@ -21,7 +21,7 @@ import {
   skipAreaStyle,
 } from "./style";
 import { FastForward, FastRewind, HighlightOff } from "@mui/icons-material";
-import { PokedexData } from "../../store/modules/pokemon/pokemon";
+import { PokedexData } from "../../config/utils/types";
 
 interface PokedexProps {
   open: boolean;

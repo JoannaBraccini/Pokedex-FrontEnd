@@ -1,24 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getAllPokemonThunk, getOnePokemonThunk } from "./pokemonThunk";
 import {
-  PokedexData,
+  getPokemonListThunk,
+  getPokemonDetailThunk,
+  getPokemonDataThunk,
+} from "./pokemonThunk";
+import {
   Pokemon,
+  PokemonData,
   PokemonList,
 } from "../../../config/utils/types/pokemon";
 import { ResponseAPI } from "../../../config/services/api.service";
 
 interface InitialState {
   pokemonList: PokemonList | null;
-  pokemon: Pokemon | null;
-  favorited: PokedexData[];
+  pokemonData: PokemonData[];
+  pokemonDetail: Pokemon | null;
   loading: boolean;
   error: string;
 }
 
 const initialState: InitialState = {
   pokemonList: null,
-  pokemon: null,
-  favorited: [],
+  pokemonData: [],
+  pokemonDetail: null,
   loading: false,
   error: "",
 };
@@ -29,53 +33,65 @@ const pokemonSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(getAllPokemonThunk.pending, (state) => {
+      .addCase(getPokemonListThunk.pending, (state) => {
         state.loading = true;
         state.error = "";
       })
-      .addCase(
-        getAllPokemonThunk.fulfilled,
-        (state, action: PayloadAction<ResponseAPI<PokemonList>>) => {
-          state.loading = false;
-          if (action.payload.ok) {
-            const { results, count, next, previous } =
-              action.payload.data || {};
-            state.pokemonList = {
-              results: results || [],
-              count: count || 0,
-              next: next || null,
-              previous: previous || null,
-            };
-          } else {
-            state.error = action.payload.message;
-          }
+      .addCase(getPokemonListThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log(action.payload);
+
+        if (action.payload.ok && action.payload.data) {
+          state.pokemonList = action.payload.data;
+        } else {
+          state.error = action.payload.message || "Erro ao buscar pokémons.";
         }
-      )
-      .addCase(getAllPokemonThunk.rejected, (state, action) => {
+      })
+      .addCase(getPokemonListThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Erro ao buscar pokémons.";
       });
 
     builder
-      .addCase(getOnePokemonThunk.pending, (state) => {
+      .addCase(getPokemonDataThunk.pending, (state) => {
         state.loading = true;
-        state.error = "";
+      })
+      .addCase(getPokemonDataThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log(action.payload);
+
+        // const { data } = action.payload;
+        // if (data) {
+        //   state.pokemonData = data;
+        // } else {
+        //   state.error = "Não foi possível carregar os dados dos pokémons.";
+        // }
+      })
+      .addCase(getPokemonDataThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          action.error.message || "Erro ao buscar dados do pokémon.";
+      });
+    builder
+      .addCase(getPokemonDetailThunk.pending, (state) => {
+        state.loading = true;
       })
       .addCase(
-        getOnePokemonThunk.fulfilled,
+        getPokemonDetailThunk.fulfilled,
         (state, action: PayloadAction<ResponseAPI<Pokemon>>) => {
           state.loading = false;
-          if (action.payload.ok) {
-            state.pokemon = action.payload.data || null;
+          if (action.payload.ok && action.payload.data) {
+            state.pokemonDetail = action.payload.data;
           } else {
-            state.error = action.payload.message;
+            state.error =
+              action.payload.message || "Erro ao carregar detalhes do Pokémon.";
           }
         }
       )
-      .addCase(getOnePokemonThunk.rejected, (state, action) => {
+      .addCase(getPokemonDetailThunk.rejected, (state, action) => {
         state.loading = false;
         state.error =
-          action.error.message || "Erro ao buscar detalhes do pokémon.";
+          action.error.message || "Erro ao carregar detalhes do Pokémon.";
       });
   },
 });

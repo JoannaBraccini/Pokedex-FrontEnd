@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { PokedexData } from "../../../config/utils/types";
 
 interface InitialState {
-  favorites: string[];
+  favorites: PokedexData[];
 }
 
 const initialState: InitialState = {
@@ -12,13 +13,15 @@ const favoritesSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    toggleFavorite: (state, action: PayloadAction<string>) => {
-      const name = action.payload;
-      const isFavorited = state.favorites.includes(name);
+    toggleFavorite: (state, action: PayloadAction<PokedexData>) => {
+      const pokemon = action.payload;
+      const isFavorited = state.favorites.includes(pokemon);
       if (isFavorited) {
-        state.favorites = state.favorites.filter((favName) => favName !== name);
+        state.favorites = state.favorites.filter(
+          (favPokemon) => favPokemon !== pokemon
+        );
       } else {
-        state.favorites.push(name);
+        state.favorites.push(action.payload);
       }
     },
   },

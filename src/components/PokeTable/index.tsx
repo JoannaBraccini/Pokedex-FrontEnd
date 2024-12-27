@@ -27,6 +27,12 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { showAlert } from "../../store/modules/alert/AlertSlice";
 import { PokedexData, PokemonData } from "../../config/utils/types";
 import { toggleFavorite } from "../../store/modules/favorites/favoritesSlice";
+import {
+  setOrder,
+  setOrderBy,
+  setPage,
+  setRowsPerPage,
+} from "../../store/modules/table/tableSlice";
 
 //passos do tutorial
 const tableSteps = [
@@ -75,18 +81,16 @@ function getComparator<Key extends keyof PokemonData>(
 }
 
 export function PokeTable() {
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof PokemonData>("name");
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [pokedex, setPokedex] = React.useState<PokedexData[]>([]);
   const [openPokedex, setOpenPokedex] = React.useState(false);
   const [showPokemon, setShowPokemon] = React.useState<PokedexData>(
     {} as PokedexData
   );
   const dispatch = useAppDispatch();
-  const pokemons = useAppSelector((state) => state.pokemonList);
-  const favorites = useAppSelector((state) => state.favorites);
+  const { pokemonData } = useAppSelector((state) => state.pokemon);
+  const favorites = useAppSelector((state) => state.favorite.favorites);
+  const { order, orderBy, page, rowsPerPage } = useAppSelector(
+    (state) => state.table
+  );
 
   const handlePokedexOpen = () => {
     // Filtra os Pokémon favoritos presentes na Pokedex
@@ -96,8 +100,6 @@ export function PokeTable() {
       );
       return;
     }
-
-    setPokedex(favorites);
     setOpenPokedex(true);
   };
 
@@ -109,39 +111,40 @@ export function PokeTable() {
     setShowPokemon({ id, name, avatar });
   };
 
+  const handleFavoriteClick = (id: number, name: string, avatar: string) => {
+    const pokemon: PokedexData = { id, name, avatar };
+    dispatch(toggleFavorite(pokemon));
+  };
+
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,
     property: keyof PokemonData
   ) => {
     const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
-
-  const handleFavoriteClick = (name: string) => {
-    dispatch(toggleFavorite(name));
+    dispatch(setOrder(isAsc ? "desc" : "asc"));
+    dispatch(setOrderBy(property));
   };
 
   const handleChangePage = (_event: unknown, newPage: number) => {
-    setPage(newPage);
+    dispatch(setPage(newPage));
   };
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    dispatch(setRowsPerPage(parseInt(event.target.value, 10)));
+    dispatch(setPage(0));
   };
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - pokemons.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - pokemonData.length) : 0;
 
   const visibleRows = React.useMemo(
     () =>
-      [...pokemons]
+      [...pokemonData]
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage, pokemons]
+    [order, orderBy, page, rowsPerPage, pokemonData]
   );
 
   return (
@@ -152,6 +155,10 @@ export function PokeTable() {
         avatar={showPokemon.avatar}
       />
       <Box id="details" sx={detailsStyle} />
+      <Box id="pokedex" sx={pokedexStyle} />
+      <Box id="search" sx={searchStyle} />
+      <Box id="avatar" sx={avatarStyle} />
+      <Box id="favorite" sx={favoriteStyle} />
       <Paper sx={paperStyle}>
         <TableContainer>
           <Table
@@ -159,20 +166,17 @@ export function PokeTable() {
             aria-labelledby="tableTitle"
             size="small"
           >
-            <Box id="search" sx={searchStyle} />
             <PokeTableHead
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={pokemons.length}
+              rowCount={pokemonData.length}
               handlePokedexOpen={handlePokedexOpen}
             />
-            <Box id="pokedex" sx={pokedexStyle} />
-            <Box id="avatar" sx={avatarStyle} />
             <TableBody>
               {visibleRows.map((row, index) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
-                const isFavorited = favorites.includes(row.name);
+                const isFavorited = favorites.includes(row);
                 return (
                   <TableRow
                     hover
@@ -188,11 +192,10 @@ export function PokeTable() {
                       <IconButton
                         onClick={(event) => {
                           event.stopPropagation();
-                          handleFavoriteClick(row.name);
+                          handleFavoriteClick(row.id, row.name, row.avatar);
                         }}
                         aria-label="favorite"
                       >
-                        <Box id="favorite" sx={favoriteStyle} />
                         <Favorite color={isFavorited ? "error" : "inherit"} />
                       </IconButton>
                     </TableCell>
@@ -207,7 +210,7 @@ export function PokeTable() {
                     </TableCell>
                     <TableCell align="center">{row.height}</TableCell>
                     <TableCell align="center">{row.weight}</TableCell>
-                    <TableCell align="center">{row.abilities}</TableCell>
+                    <TableCell align="center">{row.abilitiesCount}</TableCell>
                     <TableCell align="center">
                       <Avatar
                         src={row.avatar}
@@ -234,7 +237,7 @@ export function PokeTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 20]}
           component="div"
-          count={pokemons.length}
+          count={pokemonData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -243,7 +246,11 @@ export function PokeTable() {
         />
       </Paper>
       <TutorialPopover steps={tableSteps} tutorialKey="tutorialSeen" />
-      <Pokedex open={openPokedex} handleClose={handleClose} pokedex={pokedex} />
+      <Pokedex
+        open={openPokedex}
+        handleClose={handleClose}
+        pokedex={favorites}
+      />
     </Box>
   );
 }

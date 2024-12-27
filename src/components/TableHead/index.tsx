@@ -68,7 +68,7 @@ export function PokeTableHead({
   onRequestSort,
   handlePokedexOpen,
 }: PokeTableHeadProps) {
-  const favorites = useAppSelector((state) => state.favorites);
+  const favorites = useAppSelector((state) => state.favorite.favorites);
 
   const createSortHandler =
     (property: keyof PokemonData) => (event: React.MouseEvent<unknown>) => {
