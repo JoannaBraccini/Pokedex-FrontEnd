@@ -1,5 +1,4 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -24,6 +23,7 @@ import {
   pokeXsStyle,
 } from "./style.ts";
 import { Link } from "react-router";
+import { AppBar } from "@mui/material";
 
 const pages = ["PokéAPI", "Documentação", "Growdev"];
 

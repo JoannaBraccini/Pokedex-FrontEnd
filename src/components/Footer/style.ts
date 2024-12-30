@@ -7,15 +7,17 @@ export const appStyle = {
 
 export const copyStyle = {
   fontSize: "small",
-  marginX: "5px",
-  paddingX: "2px",
+  margin: "auto",
+  paddingX: "1px",
   paddingBottom: "2px",
 };
 
 export const typoSM = {
   display: { xs: "none", sm: "block" },
+  width: "100%",
 };
 
 export const typoXS = {
   display: { xs: "block", sm: "none" },
+  width: "100%",
 };

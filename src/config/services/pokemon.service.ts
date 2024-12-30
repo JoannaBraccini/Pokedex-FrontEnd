@@ -13,10 +13,11 @@ export async function getPokemonListService(
 
   try {
     const response = await api.get("/pokemon", { params });
+    console.log(response);
     return {
       ok: response.data.ok,
       message: response.data.message || "Pokémons carregados com sucesso.",
-      data: response.data.data,
+      data: response.data.results,
     };
   } catch (error: any) {
     console.error(
