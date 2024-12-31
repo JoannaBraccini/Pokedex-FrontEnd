@@ -176,7 +176,9 @@ export function PokeTable() {
             <TableBody>
               {visibleRows.map((row, index) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
-                const isFavorited = favorites.includes(row);
+                const isFavorited = favorites.some(
+                  (favPokemon) => favPokemon.name === row.name
+                );
                 return (
                   <TableRow
                     hover

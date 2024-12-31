@@ -16,29 +16,43 @@ export const getPokemonListThunk = createAsyncThunk(
   "pokemon/getList",
   async (query: QueryPaginationRequest, { dispatch }) => {
     const response = await getPokemonListService(query);
-    console.log(response);
 
-    if (!response.ok) {
+    if (!response.data) {
       dispatch(
         showAlert({
           message: response.message || "Erro ao carregar Pokémons.",
           type: "error",
         })
       );
+      return null;
     }
+
     return response;
   }
 );
 
 export const getPokemonDataThunk = createAsyncThunk(
   "pokemon/getData",
-  async (pokemonList: { name: string }[], { dispatch }) => {
+  async (query: QueryPaginationRequest, { dispatch }) => {
+    const listResponse = await getPokemonListService(query);
+    const names = listResponse.data?.results;
+
+    if (!names) {
+      dispatch(
+        showAlert({
+          message: "Erro ao carregar dados dos Pokémons.",
+          type: "error",
+        })
+      );
+      return listResponse;
+    }
+
     const pokemons = await Promise.all(
-      pokemonList.map(async (pokemon) => {
+      names.map(async (pokemon) => {
         const response: ResponseAPI<PokemonData> = await getPokemonDataService(
           pokemon.name
         );
-        if (!response.ok) {
+        if (!response.data) {
           dispatch(
             showAlert({
               message: "Erro ao carregar dados dos Pokémons.",
@@ -47,33 +61,34 @@ export const getPokemonDataThunk = createAsyncThunk(
           );
           return null;
         }
-        console.log("response.data", response.data);
-
         return response.data;
       })
     );
-    const validPokemons: PokemonData[] = pokemons.filter(
-      (pokemon): pokemon is PokemonData => pokemon !== null
-    );
 
-    console.log("validPokemons", validPokemons);
-    return validPokemons;
+    // Filtrar os resultados nulos
+    const filteredPokemons = pokemons.filter(
+      (pokemon) => pokemon !== null
+    ) as PokemonData[];
+    console.log("filtered", filteredPokemons);
+
+    return filteredPokemons;
   }
 );
 
-export const getPokemonDetailThunk = createAsyncThunk(
-  "pokemon/getDetail",
-  async (name: string, { dispatch }) => {
-    const response: ResponseAPI<Pokemon> = await getPokemonDetailService(name);
+export const getPokemonDetailThunk = createAsyncThunk<
+  ResponseAPI<Pokemon>,
+  string
+>("pokemon/getDetail", async (name: string, { dispatch }) => {
+  const response: ResponseAPI<Pokemon> = await getPokemonDetailService(name);
 
-    if (!response.ok) {
-      dispatch(
-        showAlert({
-          message: response.message || "Erro ao carregar Pokémon.",
-          type: "error",
-        })
-      );
-    }
+  if (!response.data) {
+    dispatch(
+      showAlert({
+        message: response.message || "Erro ao carregar Pokémon.",
+        type: "error",
+      })
+    );
     return response;
   }
-);
+  return response;
+});

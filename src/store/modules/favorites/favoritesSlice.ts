@@ -15,10 +15,12 @@ const favoritesSlice = createSlice({
   reducers: {
     toggleFavorite: (state, action: PayloadAction<PokedexData>) => {
       const pokemon = action.payload;
-      const isFavorited = state.favorites.includes(pokemon);
+      const isFavorited = state.favorites.some(
+        (favPokemon) => favPokemon.name === pokemon.name
+      );
       if (isFavorited) {
         state.favorites = state.favorites.filter(
-          (favPokemon) => favPokemon !== pokemon
+          (favPokemon) => favPokemon.name !== pokemon.name
         );
       } else {
         state.favorites.push(action.payload);

@@ -2,11 +2,19 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 import { PokeTable } from "../components/PokeTable";
 import ToastSnackbar from "../components/ToastSnackbar";
 import { DefaultLayout } from "../config/DefaultLayout";
-import { useAppSelector } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import bgPikachu from "/bgPikachu.jpg";
+import { useEffect } from "react";
+import { getPokemonDataThunk } from "../store/modules/pokemon/pokemonThunk";
 
 export function Home() {
   const loading = useAppSelector((state) => state.pokemon.loading);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getPokemonDataThunk({}));
+  }, [dispatch]);
+
   return (
     <>
       {loading ? (

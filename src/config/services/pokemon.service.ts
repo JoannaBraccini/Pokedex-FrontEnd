@@ -13,11 +13,10 @@ export async function getPokemonListService(
 
   try {
     const response = await api.get("/pokemon", { params });
-    console.log(response);
     return {
-      ok: response.data.ok,
+      ok: true,
       message: response.data.message || "Pokémons carregados com sucesso.",
-      data: response.data.results,
+      data: response.data,
     };
   } catch (error: any) {
     console.error(
@@ -25,7 +24,7 @@ export async function getPokemonListService(
       error.response?.data || error.message
     );
     return {
-      ok: error.response.data.ok,
+      ok: false,
       message:
         error.response.data.message ||
         "Não foi possível buscar a lista de pokémons.",
@@ -45,7 +44,7 @@ export async function getPokemonDataService(
       name: response.data.name,
       height: response.data.height,
       weight: response.data.weight,
-      abilitiesCount: response.data.abilitiesCount,
+      abilitiesCount: response.data.abilities.length,
       avatar: response.data.sprites.front_default,
     };
 

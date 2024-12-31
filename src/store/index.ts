@@ -13,10 +13,9 @@ import storage from "redux-persist/lib/storage";
 import { rootReducer } from "./modules/rootReducer";
 
 const persistConfig = {
-  key: "mui-app-key",
+  key: "pokedex-key",
   storage,
-  whitelist: ["favorites"],
-  //   blacklist: [],
+  whitelist: ["favorite"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

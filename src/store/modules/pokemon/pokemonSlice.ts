@@ -35,18 +35,26 @@ const pokemonSlice = createSlice({
     builder
       .addCase(getPokemonListThunk.pending, (state) => {
         state.loading = true;
-        state.error = "";
       })
-      .addCase(getPokemonListThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        console.log(action.payload);
+      .addCase(
+        getPokemonListThunk.fulfilled,
+        (state, action: PayloadAction<ResponseAPI<PokemonList> | null>) => {
+          state.loading = false;
 
-        if (action.payload.ok && action.payload.data) {
-          state.pokemonList = action.payload.data;
-        } else {
-          state.error = action.payload.message || "Erro ao buscar pokémons.";
+          if (action.payload && action.payload.ok && action.payload.data) {
+            const response = action.payload.data;
+            state.pokemonList = {
+              count: response.count,
+              next: response.next,
+              previous: response.previous,
+              results: response.results,
+            };
+          } else {
+            state.error = action.payload?.message || "Erro ao buscar pokémons.";
+            state.pokemonList = null;
+          }
         }
-      })
+      )
       .addCase(getPokemonListThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Erro ao buscar pokémons.";
@@ -56,22 +64,25 @@ const pokemonSlice = createSlice({
       .addCase(getPokemonDataThunk.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getPokemonDataThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        console.log(action.payload);
+      .addCase(
+        getPokemonDataThunk.fulfilled,
+        (state, action: PayloadAction<PokemonData[]>) => {
+          state.loading = false;
 
-        // const { data } = action.payload;
-        // if (data) {
-        //   state.pokemonData = data;
-        // } else {
-        //   state.error = "Não foi possível carregar os dados dos pokémons.";
-        // }
-      })
+          if (!action.payload || action.payload.length === 0) {
+            state.pokemonData = [];
+            state.error = "Não foi possível carregar os dados dos pokémons.";
+          }
+
+          state.pokemonData = action.payload;
+        }
+      )
       .addCase(getPokemonDataThunk.rejected, (state, action) => {
         state.loading = false;
         state.error =
           action.error.message || "Erro ao buscar dados do pokémon.";
       });
+
     builder
       .addCase(getPokemonDetailThunk.pending, (state) => {
         state.loading = true;
@@ -80,6 +91,8 @@ const pokemonSlice = createSlice({
         getPokemonDetailThunk.fulfilled,
         (state, action: PayloadAction<ResponseAPI<Pokemon>>) => {
           state.loading = false;
+          console.log("payload 3", action.payload);
+
           if (action.payload.ok && action.payload.data) {
             state.pokemonDetail = action.payload.data;
           } else {
