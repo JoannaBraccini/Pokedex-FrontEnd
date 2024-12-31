@@ -20,9 +20,6 @@ export function DefaultLayout({
         sx={{
           ...style,
           backgroundImage: `url(${backgroundImage})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "bottom",
         }}
       >
         {children}

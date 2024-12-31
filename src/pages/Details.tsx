@@ -22,8 +22,10 @@ export function Details() {
       <h1>Detalhes do Pokémon</h1>
       <p>ID: {pokemonDetail?.id}</p>
       <p>Nome: {pokemonDetail?.name}</p>
-      <p>Altura: {pokemonDetail!.height * 10} cm</p>
-      <p>Peso: {pokemonDetail!.weight / 100} kg</p>
+      <p>
+        Altura: {pokemonDetail?.height && `${pokemonDetail.height * 10} cm`}
+      </p>
+      <p>Peso: {pokemonDetail?.weight && `${pokemonDetail.weight / 100} kg`}</p>
       <ul>
         Habilidades:{" "}
         {pokemonDetail?.abilities.map((hab, index) => (
