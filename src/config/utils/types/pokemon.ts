@@ -5,7 +5,7 @@ interface Ability {
 }
 
 interface Stat {
-  baseStat: number;
+  base_stat: number;
   effort: number;
   stat: {
     name: string;

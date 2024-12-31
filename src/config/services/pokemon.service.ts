@@ -81,7 +81,7 @@ export async function getPokemonDetailService(
       stats: response.data.stats,
       types: response.data.types,
       abilities: response.data.abilities,
-      sprites: response.data.sprites.front_default,
+      sprites: response.data.sprites,
     };
 
     return {

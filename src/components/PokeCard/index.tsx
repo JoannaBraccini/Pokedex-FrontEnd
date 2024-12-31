@@ -35,7 +35,6 @@ export function PokeCard({ id, name, avatar }: PokedexData) {
         sx={cardMediaStyle}
         component="img"
         alt={name}
-        height={160}
         image={avatar}
       />
       <CardContent>

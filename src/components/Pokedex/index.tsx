@@ -24,6 +24,8 @@ import { FastForward, FastRewind, HighlightOff } from "@mui/icons-material";
 import { PokedexData } from "../../config/utils/types";
 import { useAppDispatch } from "../../store/hooks";
 import { toggleFavorite } from "../../store/modules/favorites/favoritesSlice";
+import { useNavigate } from "react-router";
+import { getPokemonDetailThunk } from "../../store/modules/pokemon/pokemonThunk";
 
 interface PokedexProps {
   open: boolean;
@@ -36,6 +38,7 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const currentPokemon = pokedex[currentIndex];
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -57,9 +60,14 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
     );
   };
 
+  //Detalhes
+  const handleDetails = () => {
+    dispatch(getPokemonDetailThunk(currentPokemon.name));
+    navigate(`/details/${currentPokemon.name}`);
+  };
+
   // Remover
   const handleRemove = () => {
-    console.log(`Remover Pokémon: ${currentPokemon?.name}`);
     handleMenuClose();
     dispatch(toggleFavorite(currentPokemon));
   };
@@ -99,6 +107,7 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
+              <MenuItem onClick={handleDetails}>Detalhes</MenuItem>
               <MenuItem onClick={handleRemove}>Remover</MenuItem>
               <MenuItem onClick={handleExit}>Fechar</MenuItem>
             </Menu>

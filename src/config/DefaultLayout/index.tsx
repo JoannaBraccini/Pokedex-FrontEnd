@@ -16,7 +16,17 @@ export function DefaultLayout({
   return (
     <>
       <Header />
-      <Box sx={style}>{children}</Box>
+      <Box
+        sx={{
+          ...style,
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "bottom",
+        }}
+      >
+        {children}
+      </Box>
       <Footer />
     </>
   );

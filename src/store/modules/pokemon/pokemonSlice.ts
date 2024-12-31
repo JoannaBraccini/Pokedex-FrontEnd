@@ -66,21 +66,24 @@ const pokemonSlice = createSlice({
       })
       .addCase(
         getPokemonDataThunk.fulfilled,
-        (state, action: PayloadAction<PokemonData[]>) => {
+        (
+          state,
+          action: PayloadAction<PokemonData[] | ResponseAPI<PokemonList>>
+        ) => {
           state.loading = false;
 
-          if (!action.payload || action.payload.length === 0) {
+          if (!action.payload || Array.isArray(action.payload)) {
+            state.pokemonData = action.payload as PokemonData[];
+          } else {
             state.pokemonData = [];
             state.error = "Não foi possível carregar os dados dos pokémons.";
           }
-
-          state.pokemonData = action.payload;
         }
       )
       .addCase(getPokemonDataThunk.rejected, (state, action) => {
         state.loading = false;
         state.error =
-          action.error.message || "Erro ao buscar dados do pokémon.";
+          action.error?.message || "Erro ao buscar dados do pokémon.";
       });
 
     builder
@@ -91,7 +94,6 @@ const pokemonSlice = createSlice({
         getPokemonDetailThunk.fulfilled,
         (state, action: PayloadAction<ResponseAPI<Pokemon>>) => {
           state.loading = false;
-          console.log("payload 3", action.payload);
 
           if (action.payload && action.payload.ok && action.payload.data) {
             state.pokemonDetail = action.payload.data;

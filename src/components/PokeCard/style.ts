@@ -12,6 +12,7 @@ export const cardStyle = {
 export const cardMediaStyle = {
   backgroundImage: `url(${bgPokedex})`,
   height: "100%",
+  minHeight: "160px",
   border: "2px solid #521605",
 };
 

@@ -39,8 +39,8 @@ export function SearchBar() {
     <Search
       onKeyDown={(e) => {
         if (e.key === "Enter") {
-          e.preventDefault();
-          e.stopPropagation();
+          e.preventDefault(); // Garante que o comportamento padrão não aconteça.
+          e.stopPropagation(); // Evita propagação desnecessária.
           handleSearch(e);
         }
       }}

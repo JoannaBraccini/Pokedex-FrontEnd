@@ -35,7 +35,7 @@ export function Home() {
           }}
         >
           <CircularProgress color="error" />
-          <Typography variant="button" sx={{ fontSize: 18 }}>
+          <Typography variant="button" sx={{ fontSize: 18, color: "white" }}>
             Aguarde...
           </Typography>
         </Box>
