@@ -1,7 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Search, SearchIconWrapper, StyledInputBase } from "./style";
 import { useEffect, useState } from "react";
-import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { showAlert } from "../../store/modules/alert/AlertSlice";
@@ -13,8 +12,9 @@ export function SearchBar() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleSearch = (event: React.FormEvent | React.MouseEvent) => {
+  const handleSearch = (event: React.FormEvent<HTMLDivElement>) => {
     event.preventDefault();
+    event.stopPropagation();
 
     if (searchTerm) {
       const pokemonSearch = pokemonList?.results.find((pokemon) =>
@@ -22,7 +22,6 @@ export function SearchBar() {
       );
       if (pokemonSearch) {
         dispatch(getPokemonDetailThunk(pokemonSearch.name));
-        navigate(`/details/${pokemonSearch.name}`);
       } else {
         dispatch(
           showAlert({
@@ -37,22 +36,23 @@ export function SearchBar() {
   useEffect(() => {}, [searchTerm, pokemonList, dispatch, navigate]);
 
   return (
-    <Search onSubmit={handleSearch}>
+    <Search
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          e.stopPropagation();
+          handleSearch(e);
+        }
+      }}
+    >
       <SearchIconWrapper>
-        <IconButton>
-          <SearchIcon sx={{ color: "white" }} />
-        </IconButton>
+        <SearchIcon sx={{ color: "white" }} />
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="PokéBusca..."
         inputProps={{ "aria-label": "pesquisar" }}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleSearch(e);
-          }
-        }}
       />
     </Search>
   );

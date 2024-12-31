@@ -17,7 +17,6 @@ const styles: Record<string, CSSObject> = {
     minHeight: "100vh",
     backgroundColor: "#FFC801",
     zIndex: -10,
-    overflow: "hidden",
   },
 };
 export function GlobalStyle() {

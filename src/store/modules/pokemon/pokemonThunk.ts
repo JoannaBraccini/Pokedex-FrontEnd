@@ -26,7 +26,6 @@ export const getPokemonListThunk = createAsyncThunk(
       );
       return null;
     }
-
     return response;
   }
 );
@@ -69,8 +68,6 @@ export const getPokemonDataThunk = createAsyncThunk(
     const filteredPokemons = pokemons.filter(
       (pokemon) => pokemon !== null
     ) as PokemonData[];
-    console.log("filtered", filteredPokemons);
-
     return filteredPokemons;
   }
 );

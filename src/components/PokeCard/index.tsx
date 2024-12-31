@@ -9,6 +9,7 @@ import { buttonStyle, cardMediaStyle, cardStyle } from "./style";
 import { useAppDispatch } from "../../store/hooks";
 import { showAlert } from "../../store/modules/alert/AlertSlice";
 import { PokedexData } from "../../config/utils/types";
+import { getPokemonDetailThunk } from "../../store/modules/pokemon/pokemonThunk";
 
 export function PokeCard({ id, name, avatar }: PokedexData) {
   const navigate = useNavigate();
@@ -24,8 +25,10 @@ export function PokeCard({ id, name, avatar }: PokedexData) {
       );
       return;
     }
-    navigate(`/details/${id}`);
+    dispatch(getPokemonDetailThunk(name));
+    navigate(`/details/${name}`);
   };
+
   return (
     <Card sx={cardStyle}>
       <CardMedia
@@ -43,7 +46,7 @@ export function PokeCard({ id, name, avatar }: PokedexData) {
           fontWeight={600}
           component="div"
         >
-          {id} - {name}
+          {name}
         </Typography>
       </CardContent>
       <CardActions>

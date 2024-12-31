@@ -12,6 +12,7 @@ export const paperStyle = {
   width: { xs: "100%", md: "60%", lg: "80%", xl: "100%" },
   mb: 2,
   mr: { xs: 0, md: 5 },
+  overflowY: "auto",
 };
 
 export const detailsStyle = {

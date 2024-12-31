@@ -4,7 +4,7 @@ import { QueryPaginationRequest } from "../utils/types";
 import { api, ResponseAPI } from "./api.service";
 
 export async function getPokemonListService(
-  query: QueryPaginationRequest = { limit: 20, offset: 0 }
+  query: QueryPaginationRequest
 ): Promise<ResponseAPI<PokemonList>> {
   const params = new URLSearchParams();
 

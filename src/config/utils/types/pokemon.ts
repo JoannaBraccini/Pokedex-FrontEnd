@@ -56,7 +56,6 @@ export interface PokemonData {
   height: number;
   weight: number;
   abilitiesCount: number;
-  // abilities: Ability[];
   avatar: string;
 }
 

@@ -25,12 +25,12 @@ const headCellList: readonly HeadCell[] = [
   {
     id: "height",
     numeric: true,
-    label: "Altura",
+    label: "Altura (cm)",
   },
   {
     id: "weight",
     numeric: true,
-    label: "Peso",
+    label: "Peso (g)",
   },
   {
     id: "abilitiesCount",

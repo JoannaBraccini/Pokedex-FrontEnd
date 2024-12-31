@@ -15,7 +15,7 @@ import { rootReducer } from "./modules/rootReducer";
 const persistConfig = {
   key: "pokedex-key",
   storage,
-  whitelist: ["favorite"],
+  whitelist: ["favorite", "page"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -6,7 +6,7 @@ import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import { CardActionArea, Dialog } from "@mui/material";
+import { CardActionArea, Dialog, Menu, MenuItem } from "@mui/material";
 import {
   actionsStyle,
   skipButtonStyle,
@@ -22,6 +22,8 @@ import {
 } from "./style";
 import { FastForward, FastRewind, HighlightOff } from "@mui/icons-material";
 import { PokedexData } from "../../config/utils/types";
+import { useAppDispatch } from "../../store/hooks";
+import { toggleFavorite } from "../../store/modules/favorites/favoritesSlice";
 
 interface PokedexProps {
   open: boolean;
@@ -31,7 +33,17 @@ interface PokedexProps {
 
 export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const currentPokemon = pokedex[currentIndex];
+  const dispatch = useAppDispatch();
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   // Avançar ao próximo Pokémon
   const handleNext = () => {
@@ -43,6 +55,19 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? pokedex.length - 1 : prevIndex - 1
     );
+  };
+
+  // Remover
+  const handleRemove = () => {
+    console.log(`Remover Pokémon: ${currentPokemon?.name}`);
+    handleMenuClose();
+    dispatch(toggleFavorite(currentPokemon));
+  };
+
+  // Fechar
+  const handleExit = () => {
+    handleMenuClose();
+    handleClose();
   };
 
   return (
@@ -66,9 +91,17 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
         </CardMedia>
         <CardActions disableSpacing sx={actionsStyle}>
           <CardActionArea sx={closeAreaStyle}>
-            <IconButton onClick={handleClose} sx={closeButtonStyle}>
+            <IconButton onClick={handleMenuOpen} sx={closeButtonStyle}>
               <HighlightOff />
             </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={handleRemove}>Remover</MenuItem>
+              <MenuItem onClick={handleExit}>Fechar</MenuItem>
+            </Menu>
           </CardActionArea>
           <CardActionArea sx={skipAreaStyle}>
             <IconButton

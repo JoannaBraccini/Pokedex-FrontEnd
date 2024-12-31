@@ -82,11 +82,13 @@ function getComparator<Key extends keyof PokemonData>(
 
 export function PokeTable() {
   const [openPokedex, setOpenPokedex] = React.useState(false);
-  const [showPokemon, setShowPokemon] = React.useState<PokedexData>(
+  const [openPokeCard, setOpenPokeCard] = React.useState<PokedexData>(
     {} as PokedexData
   );
   const dispatch = useAppDispatch();
-  const { pokemonData } = useAppSelector((state) => state.pokemon);
+  const { pokemonData, pokemonDetail } = useAppSelector(
+    (state) => state.pokemon
+  );
   const favorites = useAppSelector((state) => state.favorite.favorites);
   const { order, orderBy, page, rowsPerPage } = useAppSelector(
     (state) => state.table
@@ -107,8 +109,8 @@ export function PokeTable() {
     setOpenPokedex(false);
   };
 
-  const handleAvatarClick = (id: number, name: string, avatar: string) => {
-    setShowPokemon({ id, name, avatar });
+  const handlePokeCardClick = (id: number, name: string, avatar: string) => {
+    setOpenPokeCard({ id, name, avatar });
   };
 
   const handleFavoriteClick = (id: number, name: string, avatar: string) => {
@@ -147,12 +149,22 @@ export function PokeTable() {
     [order, orderBy, page, rowsPerPage, pokemonData]
   );
 
+  React.useEffect(() => {
+    if (pokemonDetail) {
+      setOpenPokeCard({
+        id: pokemonDetail.id,
+        name: pokemonDetail.name,
+        avatar: pokemonDetail.sprites.front_default || pokemonDetail.sprites,
+      });
+    }
+  }, [pokemonDetail]);
+
   return (
     <Box sx={boxStyle}>
       <PokeCard
-        id={showPokemon.id}
-        name={showPokemon.name}
-        avatar={showPokemon.avatar}
+        id={openPokeCard.id}
+        name={openPokeCard.name}
+        avatar={openPokeCard.avatar}
       />
       <Box id="details" sx={detailsStyle} />
       <Box id="pokedex" sx={pokedexStyle} />
@@ -187,7 +199,7 @@ export function PokeTable() {
                     key={row.id}
                     sx={{ cursor: "pointer" }}
                     onClick={() =>
-                      handleAvatarClick(row.id, row.name, row.avatar)
+                      handlePokeCardClick(row.id, row.name, row.avatar)
                     }
                   >
                     <TableCell padding="checkbox">
@@ -210,8 +222,8 @@ export function PokeTable() {
                     >
                       {row.name}
                     </TableCell>
-                    <TableCell align="center">{row.height}</TableCell>
-                    <TableCell align="center">{row.weight}</TableCell>
+                    <TableCell align="center">{row.height / 10}</TableCell>
+                    <TableCell align="center">{row.weight / 100}</TableCell>
                     <TableCell align="center">{row.abilitiesCount}</TableCell>
                     <TableCell align="center">
                       <Avatar
@@ -238,6 +250,8 @@ export function PokeTable() {
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 20]}
+          showFirstButton
+          showLastButton
           component="div"
           count={pokemonData.length}
           rowsPerPage={rowsPerPage}

@@ -5,14 +5,21 @@ import { DefaultLayout } from "../config/DefaultLayout";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import bgPikachu from "/bgPikachu.jpg";
 import { useEffect } from "react";
-import { getPokemonDataThunk } from "../store/modules/pokemon/pokemonThunk";
+import {
+  getPokemonDataThunk,
+  getPokemonListThunk,
+} from "../store/modules/pokemon/pokemonThunk";
 
 export function Home() {
   const loading = useAppSelector((state) => state.pokemon.loading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getPokemonDataThunk({}));
+    dispatch(getPokemonListThunk({ limit: 1302, offset: 0 }));
+    const timer = setTimeout(() => {
+      dispatch(getPokemonDataThunk({ limit: 1302, offset: 0 }));
+    }, 4000);
+    return () => clearTimeout(timer);
   }, [dispatch]);
 
   return (
@@ -27,7 +34,7 @@ export function Home() {
             alignItems: "center",
           }}
         >
-          <CircularProgress />
+          <CircularProgress color="error" />
           <Typography variant="button" sx={{ fontSize: 18 }}>
             Aguarde...
           </Typography>
