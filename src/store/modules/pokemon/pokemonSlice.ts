@@ -93,11 +93,12 @@ const pokemonSlice = createSlice({
           state.loading = false;
           console.log("payload 3", action.payload);
 
-          if (action.payload.ok && action.payload.data) {
+          if (action.payload && action.payload.ok && action.payload.data) {
             state.pokemonDetail = action.payload.data;
           } else {
             state.error =
-              action.payload.message || "Erro ao carregar detalhes do Pokémon.";
+              action.payload?.message ||
+              "Erro ao carregar detalhes do Pokémon.";
           }
         }
       )

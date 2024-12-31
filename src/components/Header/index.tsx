@@ -10,7 +10,6 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { CatchingPokemon } from "@mui/icons-material";
 import logo from "/logo.png";
-import { SearchBar } from "../SearchBar/index.tsx";
 import {
   appStyle,
   boxMdStyle,
@@ -24,6 +23,7 @@ import {
 } from "./style.ts";
 import { Link } from "react-router";
 import { AppBar } from "@mui/material";
+import { SearchBar } from "../SearchBar";
 
 const pages = ["PokéAPI", "Documentação", "Growdev"];
 

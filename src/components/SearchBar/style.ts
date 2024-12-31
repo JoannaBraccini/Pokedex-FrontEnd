@@ -3,7 +3,7 @@ import { alpha, InputBase, styled } from "@mui/material";
 export const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.white, 0.2),
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
@@ -13,10 +13,15 @@ export const Search = styled("div")(({ theme }) => ({
     marginLeft: theme.spacing(1),
     width: "auto",
   },
+  [theme.breakpoints.down("sm")]: {
+    position: "fixed",
+    top: 0,
+    left: 50,
+  },
 }));
 
 export const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
+  padding: theme.spacing(0.5),
   height: "100%",
   position: "absolute",
   pointerEvents: "none",
