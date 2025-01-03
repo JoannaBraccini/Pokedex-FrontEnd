@@ -35,6 +35,17 @@ export function Header() {
   const location = useLocation();
   const menuItems = location.pathname === "/" ? pages : list;
 
+  const pathTranslation: Record<string, string> = {
+    Detalhes: "details",
+    Favoritos: "pokedex",
+    Conectar: "sign",
+  };
+  // URLs dinâmicas
+  const isActive = (path: string) => {
+    // verifica o início do pathname
+    return location.pathname.startsWith(`/${pathTranslation[path]}`);
+  };
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -94,7 +105,15 @@ export function Header() {
           </Link>
           <Box sx={boxMdStyle}>
             {menuItems.map((page) => (
-              <Button key={page} onClick={handleCloseNavMenu} sx={buttonStyle}>
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{
+                  ...buttonStyle,
+                  backgroundColor: isActive(page) ? "#ff5050" : "black",
+                  color: isActive(page) ? "black" : "white",
+                }}
+              >
                 {page}
               </Button>
             ))}

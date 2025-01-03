@@ -50,8 +50,6 @@ export const iconStyle = {
 
 export const buttonStyle = {
   my: 2,
-  color: "white",
   display: "block",
-  backgroundColor: "black",
   p: "5px 15px",
 };

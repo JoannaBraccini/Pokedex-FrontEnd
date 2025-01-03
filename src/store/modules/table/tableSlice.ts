@@ -10,7 +10,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   order: "asc",
-  orderBy: "name",
+  orderBy: "id",
   page: 0,
   rowsPerPage: 5,
 };

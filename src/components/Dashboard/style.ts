@@ -11,6 +11,7 @@ export const BoxStyle = {
   py: 1,
   px: 5,
   overflow: "hidden",
+  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px;",
 
   "::before": {
     content: '""',
@@ -19,9 +20,9 @@ export const BoxStyle = {
     left: 0,
     right: 0,
     bottom: 0,
-    background: `url(${bgBox}) center center / contain no-repeat, rgba(0, 0, 0, 0.2)`,
+    background: `url(${bgBox}) center center / contain no-repeat`,
     backgroundSize: "100%",
-    opacity: 0.3,
+    opacity: 0.2,
     zIndex: 1,
   },
 };

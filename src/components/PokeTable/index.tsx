@@ -81,6 +81,8 @@ function getComparator<Key extends keyof PokemonData>(
 }
 
 export function PokeTable() {
+  const [manualNavigation, setManualNavigation] =
+    React.useState<boolean>(false);
   const [openPokedex, setOpenPokedex] = React.useState(false);
   const [openPokeCard, setOpenPokeCard] = React.useState<PokedexData>(
     {} as PokedexData
@@ -128,6 +130,7 @@ export function PokeTable() {
   };
 
   const handleChangePage = (_event: unknown, newPage: number) => {
+    setManualNavigation(true);
     dispatch(setPage(newPage));
   };
 
@@ -149,15 +152,43 @@ export function PokeTable() {
     [order, orderBy, page, rowsPerPage, pokemonData]
   );
 
+  // Calcula em qual página o Pokémon está
+  const getPokemonPage = (id: number) => {
+    const index = pokemonData.findIndex((pokemon) => pokemon.id === id);
+    return Math.floor(index / rowsPerPage); // página baseada no índice
+  };
+
+  // Vai até o Pokémon encontrado usando o id
+  const scrollToPokemon = (id: number) => {
+    const pokemonRow = document.getElementById(`pokemon-${id}`);
+    if (pokemonRow) {
+      pokemonRow.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
   React.useEffect(() => {
-    if (pokemonDetail) {
+    if (!manualNavigation && pokemonDetail) {
       setOpenPokeCard({
         id: pokemonDetail.id,
         name: pokemonDetail.name,
         avatar: pokemonDetail.sprites.front_default,
       });
+
+      const pageIndex = getPokemonPage(pokemonDetail.id);
+      if (pageIndex !== page) {
+        // Ajusta a página ativa para onde o Pokémon está
+        dispatch(setPage(pageIndex));
+      } else {
+        // Se o Pokémon já está na página ativa, rola até ele
+        scrollToPokemon(pokemonDetail.id);
+      }
     }
-  }, [pokemonDetail]);
+    //Reseta o estado
+    if (manualNavigation) {
+      setManualNavigation(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pokemonDetail, page]);
 
   return (
     <Box sx={boxStyle}>
@@ -197,6 +228,7 @@ export function PokeTable() {
                     role="checkbox"
                     tabIndex={-1}
                     key={row.id}
+                    id={`pokemon-${row.id}`}
                     sx={{ cursor: "pointer" }}
                     onClick={() =>
                       handlePokeCardClick(row.id, row.name, row.avatar)

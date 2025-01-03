@@ -1,9 +1,19 @@
 import Box from "@mui/material/Box";
-import { Grid2, Typography } from "@mui/material";
-import { useAppSelector } from "../../store/hooks";
+import {
+  Grid2,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { BoxStyle } from "./style";
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
-import { Stat } from "../../config/utils/types";
+import { PokedexData, Stat } from "../../config/utils/types";
+import { useEffect } from "react";
+import { Favorite } from "@mui/icons-material";
+import { toggleFavorite } from "../../store/modules/favorites/favoritesSlice";
 
 const statTranslation: Record<string, string> = {
   hp: "HP",
@@ -15,6 +25,8 @@ const statTranslation: Record<string, string> = {
 };
 
 export function Dashboard() {
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector((state) => state.favorite.favorites);
   const { pokemonDetail } = useAppSelector((state) => state.pokemon);
   const stats =
     pokemonDetail?.stats.map((stat: Stat) => ({
@@ -22,59 +34,111 @@ export function Dashboard() {
       value: stat.base_stat,
     })) || [];
 
+  const isFavorited = favorites.some(
+    (favPokemon) => favPokemon.name === pokemonDetail?.name
+  );
+
+  const handleFavorite = () => {
+    if (pokemonDetail) {
+      const pokemon: PokedexData = {
+        id: pokemonDetail.id,
+        name: pokemonDetail.name,
+        avatar: pokemonDetail.sprites.front_default,
+      };
+
+      console.log(pokemon);
+      dispatch(toggleFavorite(pokemon));
+    }
+  };
+
+  useEffect(() => {}, [pokemonDetail]);
+
   return (
     <Box component="main" maxWidth="lg" sx={{ flexGrow: 1, p: 3 }}>
-      <Grid2 container spacing={4}>
+      <Grid2 container width={"95vw"} spacing={4}>
         <Grid2 size={{ xs: 12, md: 6, lg: 3 }}>
           <Box
             sx={{
               ...BoxStyle,
               flexDirection: "row",
+              gap: 1,
               backgroundColor: "#D9EEFE",
             }}
           >
-            <img src={pokemonDetail?.sprites.front_default} />
+            <Box
+              component="img"
+              height={130}
+              src={pokemonDetail?.sprites.front_default}
+            />
             <Box>
-              <Typography>ID: {pokemonDetail?.id}</Typography>
+              <Typography variant="button">ID: {pokemonDetail?.id}</Typography>
               <Typography>{pokemonDetail?.name}</Typography>
             </Box>
-          </Box>
-        </Grid2>
-        <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
-          <Box sx={{ ...BoxStyle, backgroundColor: "#EFDBFF" }}>
-            <ul>
-              Habilidades:
-              {pokemonDetail?.abilities.map((hab, index) => (
-                <li key={index}>{hab.ability.name}</li>
-              ))}
-            </ul>
+            <IconButton
+              sx={{
+                position: "absolute",
+                top: 8,
+                right: 8,
+                cursor: "pointer",
+                zIndex: 10,
+              }}
+              onClick={handleFavorite}
+            >
+              <Favorite color={isFavorited ? "error" : "inherit"} />
+            </IconButton>
           </Box>
         </Grid2>
         <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
           <Box sx={{ ...BoxStyle, backgroundColor: "#FFF5D4" }}>
-            <p>
+            <Typography variant="button">
               Altura:{" "}
               {pokemonDetail?.height && `${pokemonDetail.height * 10} cm`}
-            </p>
-            <p>
+            </Typography>
+            <Typography variant="button">
               Peso:{" "}
               {pokemonDetail?.weight && `${pokemonDetail.weight / 100} kg`}
-            </p>
-            <p>Experiência Base: {pokemonDetail?.base_experience}</p>
+            </Typography>
+            <Typography variant="button">
+              Experiência Base: {pokemonDetail?.base_experience}
+            </Typography>
           </Box>
         </Grid2>
         <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
           <Box sx={{ ...BoxStyle, backgroundColor: "#FFE9DB" }}>
-            <ul>
-              Tipo:{" "}
+            <Typography variant="button" fontSize={16}>
+              Tipo:
+            </Typography>
+            <List>
               {pokemonDetail?.types.map((type, index) => (
-                <li key={index}>{type.type.name}</li>
+                <ListItem key={index} sx={{ py: 0 }}>
+                  <ListItemText
+                    slotProps={{ primary: { variant: "button" } }}
+                    primary={type.type.name}
+                  />
+                </ListItem>
               ))}
-            </ul>
+            </List>
+          </Box>
+        </Grid2>
+        <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
+          <Box sx={{ ...BoxStyle, backgroundColor: "#EFDBFF" }}>
+            <Typography variant="button" fontSize={16}>
+              Habilidades:
+            </Typography>
+            <List>
+              {pokemonDetail?.abilities.map((hab, index) => (
+                <ListItem key={index} sx={{ py: 0 }}>
+                  <ListItemText
+                    slotProps={{ primary: { variant: "button" } }}
+                    primary={hab.ability.name}
+                  />
+                </ListItem>
+              ))}
+            </List>
           </Box>
         </Grid2>
         <Grid2 size={6}>
-          <Box sx={{ ...BoxStyle, backgroundColor: "GrayText" }}>
+          <Box sx={{ ...BoxStyle, backgroundColor: "transparent" }}>
             <Box
               component="img"
               src={
@@ -85,8 +149,8 @@ export function Dashboard() {
             />
           </Box>
         </Grid2>
-        <Grid2 size={4}>
-          <Box sx={{ ...BoxStyle, p: 1, backgroundColor: "#dbffdd" }}>
+        <Grid2 size={4} offset={1}>
+          <Box sx={{ ...BoxStyle, p: 1, backgroundColor: "#DBFFDD" }}>
             <VictoryChart
               theme={VictoryTheme.material}
               domainPadding={15}
@@ -95,7 +159,7 @@ export function Dashboard() {
             >
               <VictoryAxis
                 style={{
-                  tickLabels: { fontSize: 12, padding: 5 },
+                  tickLabels: { fontSize: 13, padding: 1 },
                 }}
               />
               <VictoryAxis

@@ -49,7 +49,7 @@ export async function getPokemonDataService(
 ): Promise<ResponseAPI<PokemonData>> {
   try {
     const response = await api.get(
-      `/pokemon/${restoreHyphen(name.toLocaleLowerCase())}`
+      `/pokemon/${restoreHyphen(name.toLowerCase())}`
     );
 
     const data: PokemonData = {
@@ -84,7 +84,7 @@ export async function getPokemonDetailService(
 ): Promise<ResponseAPI<Pokemon>> {
   try {
     const response = await api.get(
-      `/pokemon/${restoreHyphen(name.toLocaleLowerCase())}`
+      `/pokemon/${restoreHyphen(name.toLowerCase())}`
     );
 
     const data: Pokemon = {
