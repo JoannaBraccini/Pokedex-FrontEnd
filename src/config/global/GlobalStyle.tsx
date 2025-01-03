@@ -15,8 +15,10 @@ const styles: Record<string, CSSObject> = {
     display: "flex",
     flexDirection: "column",
     minHeight: "100vh",
-    backgroundColor: "#FFC801",
     zIndex: -10,
+  },
+  li: {
+    listStyle: "none",
   },
 };
 export function GlobalStyle() {

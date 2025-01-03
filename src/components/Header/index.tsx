@@ -21,16 +21,19 @@ import {
   pokeMdStyle,
   pokeXsStyle,
 } from "./style.ts";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { AppBar } from "@mui/material";
 import { SearchBar } from "../SearchBar";
 
 const pages = ["PokéAPI", "Documentação", "Growdev"];
+const list = ["Detalhes", "Favoritos", "Conectar"];
 
 export function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
+  const location = useLocation();
+  const menuItems = location.pathname === "/" ? pages : list;
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -79,7 +82,7 @@ export function Header() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {pages.map((page) => (
+              {menuItems.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography sx={{ textAlign: "center" }}>{page}</Typography>
                 </MenuItem>
@@ -90,13 +93,13 @@ export function Header() {
             <Container component="img" src={logo} sx={imgXsStyle} />
           </Link>
           <Box sx={boxMdStyle}>
-            {pages.map((page) => (
+            {menuItems.map((page) => (
               <Button key={page} onClick={handleCloseNavMenu} sx={buttonStyle}>
                 {page}
               </Button>
             ))}
           </Box>
-          <SearchBar />
+          {location.pathname === "/" && <SearchBar />}
         </Toolbar>
       </Container>
     </AppBar>

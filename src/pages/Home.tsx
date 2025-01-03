@@ -1,4 +1,3 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
 import { PokeTable } from "../components/PokeTable";
 import ToastSnackbar from "../components/ToastSnackbar";
 import { DefaultLayout } from "../config/DefaultLayout";
@@ -9,9 +8,10 @@ import {
   getPokemonDataThunk,
   getPokemonListThunk,
 } from "../store/modules/pokemon/pokemonThunk";
+import { Loading } from "../components/Loading";
 
 export function Home() {
-  const loading = useAppSelector((state) => state.pokemon.loading);
+  const { loading } = useAppSelector((state) => state.pokemon);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -23,28 +23,10 @@ export function Home() {
   }, [dispatch]);
 
   return (
-    <>
-      {loading ? (
-        <Box
-          sx={{
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CircularProgress color="error" />
-          <Typography variant="button" sx={{ fontSize: 18, color: "white" }}>
-            Aguarde...
-          </Typography>
-        </Box>
-      ) : (
-        <DefaultLayout backgroundImage={bgPikachu}>
-          <PokeTable />
-          <ToastSnackbar />
-        </DefaultLayout>
-      )}
-    </>
+    <DefaultLayout backgroundImage={bgPikachu}>
+      {loading && <Loading />}
+      <PokeTable />
+      <ToastSnackbar />
+    </DefaultLayout>
   );
 }

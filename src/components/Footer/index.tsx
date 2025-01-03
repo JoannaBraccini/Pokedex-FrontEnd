@@ -7,7 +7,7 @@ import { appStyle, copyStyle, typoSM, typoXS } from "./style";
 
 export function Footer() {
   return (
-    <AppBar sx={appStyle}>
+    <AppBar component="footer" sx={appStyle}>
       <Toolbar
         sx={{
           maxWidth: "xl",
@@ -22,9 +22,8 @@ export function Footer() {
           </Typography>
           <Typography variant="button" noWrap sx={typoXS}>
             Joanna Braccini
-          </Typography>
-          <Copyright sx={copyStyle} />
-          <Typography> 2024</Typography>
+          </Typography>{" "}
+          <Copyright sx={copyStyle} /> <Typography> 2024</Typography>
         </Box>
       </Toolbar>
     </AppBar>

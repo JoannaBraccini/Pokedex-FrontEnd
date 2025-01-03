@@ -16,14 +16,7 @@ export function DefaultLayout({
   return (
     <>
       <Header />
-      <Box
-        sx={{
-          ...style,
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      >
-        {children}
-      </Box>
+      <Box sx={style}>{children}</Box>
       <Footer />
     </>
   );
