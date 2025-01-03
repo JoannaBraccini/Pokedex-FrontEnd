@@ -154,7 +154,7 @@ export function PokeTable() {
       setOpenPokeCard({
         id: pokemonDetail.id,
         name: pokemonDetail.name,
-        avatar: pokemonDetail.sprites.front_default, //verificar
+        avatar: pokemonDetail.sprites.front_default,
       });
     }
   }, [pokemonDetail]);
@@ -220,8 +220,9 @@ export function PokeTable() {
                       padding="normal"
                       align="center"
                     >
-                      {row.name}
+                      {row.id}
                     </TableCell>
+                    <TableCell align="center">{row.name}</TableCell>
                     <TableCell align="center">{row.height * 10}</TableCell>
                     <TableCell align="center">{row.weight * 100}</TableCell>
                     <TableCell align="center">{row.abilitiesCount}</TableCell>

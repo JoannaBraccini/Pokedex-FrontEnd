@@ -3,6 +3,17 @@ import { Pokemon, PokemonData, PokemonList } from "../utils/types/pokemon";
 import { QueryPaginationRequest } from "../utils/types";
 import { api, ResponseAPI } from "./api.service";
 
+function capitalize(name: string): string {
+  return name
+    .split("-") // Dividir o nome em palavras
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalizar inicial de cada palavra
+    .join(" "); // Juntar as palavras de volta com espaços
+}
+
+function restoreHyphen(name: string): string {
+  return name.replace(" ", "-"); // Substitui o espaço de volta por hífen
+}
+
 export async function getPokemonListService(
   query: QueryPaginationRequest
 ): Promise<ResponseAPI<PokemonList>> {
@@ -37,11 +48,13 @@ export async function getPokemonDataService(
   name: string
 ): Promise<ResponseAPI<PokemonData>> {
   try {
-    const response = await api.get(`/pokemon/${name}`);
+    const response = await api.get(
+      `/pokemon/${restoreHyphen(name.toLocaleLowerCase())}`
+    );
 
     const data: PokemonData = {
       id: response.data.id,
-      name: response.data.name,
+      name: capitalize(response.data.name),
       height: response.data.height,
       weight: response.data.weight,
       abilitiesCount: response.data.abilities.length,
@@ -70,11 +83,13 @@ export async function getPokemonDetailService(
   name: string
 ): Promise<ResponseAPI<Pokemon>> {
   try {
-    const response = await api.get(`/pokemon/${name}`);
+    const response = await api.get(
+      `/pokemon/${restoreHyphen(name.toLocaleLowerCase())}`
+    );
 
     const data: Pokemon = {
       id: response.data.id,
-      name: response.data.name,
+      name: capitalize(response.data.name),
       height: response.data.height,
       weight: response.data.weight,
       base_experience: response.data.base_experience,

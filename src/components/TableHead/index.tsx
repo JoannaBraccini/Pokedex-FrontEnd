@@ -13,33 +13,31 @@ import { useAppSelector } from "../../store/hooks";
 interface HeadCell {
   id: keyof PokemonData;
   label: string;
-  numeric: boolean;
 }
 
 const headCellList: readonly HeadCell[] = [
   {
+    id: "id",
+    label: "ID",
+  },
+  {
     id: "name",
-    numeric: false,
     label: "Nome",
   },
   {
     id: "height",
-    numeric: true,
     label: "Altura (cm)",
   },
   {
     id: "weight",
-    numeric: true,
     label: "Peso (g)",
   },
   {
     id: "abilitiesCount",
-    numeric: true,
     label: "Habilidades",
   },
   {
     id: "avatar",
-    numeric: false,
     label: "Avatar",
   },
 ];

@@ -1,8 +1,12 @@
 import bgBox from "/bgdashboardDetails.svg";
 
 export const BoxStyle = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
   position: "relative",
-  height: 240,
+  minHeight: 140,
   borderRadius: 4,
   py: 1,
   px: 5,
@@ -15,8 +19,9 @@ export const BoxStyle = {
     left: 0,
     right: 0,
     bottom: 0,
-    background: `url(${bgBox}) center center / contain no-repeat`,
-    opacity: 0.24,
+    background: `url(${bgBox}) center center / contain no-repeat, rgba(0, 0, 0, 0.2)`,
+    backgroundSize: "100%",
+    opacity: 0.3,
     zIndex: 1,
   },
 };
