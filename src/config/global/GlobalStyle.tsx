@@ -17,9 +17,6 @@ const styles: Record<string, CSSObject> = {
     minHeight: "100vh",
     zIndex: -10,
   },
-  li: {
-    listStyle: "none",
-  },
 };
 export function GlobalStyle() {
   return <GlobalStyles styles={styles} />;

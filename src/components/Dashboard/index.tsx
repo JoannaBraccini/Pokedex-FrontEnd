@@ -67,8 +67,9 @@ export function Dashboard() {
           >
             <Box
               component="img"
-              height={130}
-              src={pokemonDetail?.sprites.front_default}
+              height={90}
+              mr={4}
+              src={pokemonDetail?.sprites.other.showdown.front_default}
             />
             <Box>
               <Typography variant="button">ID: {pokemonDetail?.id}</Typography>

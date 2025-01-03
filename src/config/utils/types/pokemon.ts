@@ -24,6 +24,9 @@ interface Sprite {
     "official-artwork": {
       front_default: string;
     };
+    showdown: {
+      front_default: string;
+    };
   };
 }
 

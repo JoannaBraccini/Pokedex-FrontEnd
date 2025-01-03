@@ -21,7 +21,7 @@ import {
   pokeMdStyle,
   pokeXsStyle,
 } from "./style.ts";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AppBar } from "@mui/material";
 import { SearchBar } from "../SearchBar";
 
@@ -33,6 +33,7 @@ export function Header() {
     null
   );
   const location = useLocation();
+  const navigate = useNavigate();
   const menuItems = location.pathname === "/" ? pages : list;
 
   const pathTranslation: Record<string, string> = {
@@ -50,7 +51,8 @@ export function Header() {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (page: string) => {
+    navigate(`/${pathTranslation[page]}`);
     setAnchorElNav(null);
   };
 
@@ -59,10 +61,10 @@ export function Header() {
       <Container maxWidth="xl" sx={{ marginTop: 1 }}>
         <Toolbar disableGutters sx={{ display: "flex" }}>
           {/* menu tela grande */}
-          <CatchingPokemon sx={pokeMdStyle} />
-          <Link to="/">
-            <Container component="img" src={logo} sx={imgMdStyle} />
-          </Link>
+          <IconButton sx={iconStyle} onClick={() => navigate("/")}>
+            <CatchingPokemon sx={pokeMdStyle} />
+          </IconButton>
+          <Container component="img" src={logo} sx={imgMdStyle} />
           {/* menu tela pequena */}
           <Box sx={boxXsStyle}>
             <Tooltip title="Menu">
@@ -94,8 +96,15 @@ export function Header() {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {menuItems.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+                <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
+                  <Typography
+                    sx={{
+                      textAlign: "center",
+                      color: isActive(page) ? "#FD0100" : "inherit",
+                    }}
+                  >
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -107,7 +116,7 @@ export function Header() {
             {menuItems.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleCloseNavMenu(page)}
                 sx={{
                   ...buttonStyle,
                   backgroundColor: isActive(page) ? "#ff5050" : "black",
