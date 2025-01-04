@@ -41,6 +41,14 @@ export interface Pokemon {
   stats: Stat[];
   types: Type[];
 }
+export interface PokemonData {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+  abilitiesCount: number;
+  sprites: Sprite;
+}
 
 export interface PokemonSummary {
   name: string;
@@ -53,13 +61,4 @@ export interface PokemonList {
   results: PokemonSummary[];
 }
 
-export interface PokemonData {
-  id: number;
-  name: string;
-  height: number;
-  weight: number;
-  abilitiesCount: number;
-  avatar: string;
-}
-
-export type PokedexData = Pick<PokemonData, "id" | "name" | "avatar">;
+export type PokedexData = Pick<Pokemon, "id" | "name" | "sprites">;

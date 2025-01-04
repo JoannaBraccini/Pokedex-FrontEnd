@@ -25,8 +25,20 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { AppBar } from "@mui/material";
 import { SearchBar } from "../SearchBar";
 
-const pages = ["PokéAPI", "Documentação", "Growdev"];
-const list = ["Detalhes", "Favoritos", "Conectar"];
+const pages = [
+  { name: "PokéAPI", url: "https://pokeapi.co/" },
+  {
+    name: "Documentação",
+    url: "https://github.com/JoannaBraccini/Pokedex-FrontEnd/blob/main/README.md",
+  },
+  { name: "Growdev", url: "https://www.growdev.com.br/" },
+];
+const list = [
+  { name: "Home", path: "/" },
+  { name: "Detalhes", path: "/details" },
+  { name: "Favoritos", path: "/pokedex" },
+  { name: "Conectar", path: "/sign" },
+];
 
 export function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -44,15 +56,25 @@ export function Header() {
   // URLs dinâmicas
   const isActive = (path: string) => {
     // verifica o início do pathname
-    return location.pathname.startsWith(`/${pathTranslation[path]}`);
+    return location.pathname.match(`/${pathTranslation[path]}`);
   };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (page: string) => {
-    navigate(`/${pathTranslation[page]}`);
+  const handleCloseNavMenu = (page: {
+    name: string;
+    url?: string;
+    path?: string;
+  }) => {
+    if (page.url) {
+      // Abrir link externo
+      window.open(page.url, "_blank");
+    } else if (page.path) {
+      // Navegação interna
+      navigate(`${page.path}`);
+    }
     setAnchorElNav(null);
   };
 
@@ -96,14 +118,17 @@ export function Header() {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {menuItems.map((page) => (
-                <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
+                <MenuItem
+                  key={page.name}
+                  onClick={() => handleCloseNavMenu(page)}
+                >
                   <Typography
                     sx={{
                       textAlign: "center",
-                      color: isActive(page) ? "#FD0100" : "inherit",
+                      color: isActive(page.name) ? "#FD0100" : "inherit",
                     }}
                   >
-                    {page}
+                    {page.name}
                   </Typography>
                 </MenuItem>
               ))}
@@ -115,15 +140,18 @@ export function Header() {
           <Box sx={boxMdStyle}>
             {menuItems.map((page) => (
               <Button
-                key={page}
+                key={page.name}
                 onClick={() => handleCloseNavMenu(page)}
                 sx={{
                   ...buttonStyle,
-                  backgroundColor: isActive(page) ? "#ff5050" : "black",
-                  color: isActive(page) ? "black" : "white",
+                  backgroundColor: isActive(page.name) ? "#ff5050" : "black",
+                  color: isActive(page.name) ? "black" : "white",
+                  "&:hover": {
+                    color: isActive(page.name) ? "black" : "#ff5050",
+                  },
                 }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>

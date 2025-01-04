@@ -6,7 +6,7 @@ import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
 import { CatchingPokemonTwoTone } from "@mui/icons-material";
-import { Badge, IconButton, Tooltip } from "@mui/material";
+import { Badge, IconButton, Tooltip, Typography } from "@mui/material";
 import { PokemonData } from "../../config/utils/types";
 import { useAppSelector } from "../../store/hooks";
 
@@ -37,15 +37,12 @@ const headCellList: readonly HeadCell[] = [
     label: "Habilidades",
   },
   {
-    id: "avatar",
+    id: "sprites",
     label: "Avatar",
   },
 ];
 
 const headCells = headCellList.map((headCell) => {
-  if (headCell.id === "abilitiesCount") {
-    return { ...headCell, id: "abilities" as keyof PokemonData };
-  }
   return headCell;
 });
 
@@ -97,18 +94,25 @@ export function PokeTableHead({
             padding="checkbox"
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "ordem decrescente" : "ordem crescente"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
+            {headCell.id === "sprites" ? (
+              // Renderiza apenas o nome sem o sort
+              <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                {headCell.label}
+              </Typography>
+            ) : (
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : "asc"}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === "desc" ? "ordem decrescente" : "ordem crescente"}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            )}
           </TableCell>
         ))}
       </TableRow>

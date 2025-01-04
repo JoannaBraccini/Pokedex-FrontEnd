@@ -43,10 +43,8 @@ export function Dashboard() {
       const pokemon: PokedexData = {
         id: pokemonDetail.id,
         name: pokemonDetail.name,
-        avatar: pokemonDetail.sprites.front_default,
+        sprites: pokemonDetail.sprites,
       };
-
-      console.log(pokemon);
       dispatch(toggleFavorite(pokemon));
     }
   };
@@ -55,8 +53,8 @@ export function Dashboard() {
 
   return (
     <Box component="main" maxWidth="lg" sx={{ flexGrow: 1, p: 3 }}>
-      <Grid2 container width={"95vw"} spacing={4}>
-        <Grid2 size={{ xs: 12, md: 6, lg: 3 }}>
+      <Grid2 container width={{ xs: "88vw", sm: "95vw" }} spacing={3}>
+        <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
           <Box
             sx={{
               ...BoxStyle,
@@ -138,10 +136,11 @@ export function Dashboard() {
             </List>
           </Box>
         </Grid2>
-        <Grid2 size={6}>
+        <Grid2 size={{ xs: 12, sm: 6 }}>
           <Box sx={{ ...BoxStyle, backgroundColor: "transparent" }}>
             <Box
               component="img"
+              maxWidth={"130%"}
               src={
                 pokemonDetail?.sprites.other["official-artwork"]
                   ?.front_default || pokemonDetail?.sprites?.front_default
@@ -150,7 +149,7 @@ export function Dashboard() {
             />
           </Box>
         </Grid2>
-        <Grid2 size={4} offset={1}>
+        <Grid2 size={{ xs: 12, sm: 6 }}>
           <Box sx={{ ...BoxStyle, p: 1, backgroundColor: "#DBFFDD" }}>
             <VictoryChart
               theme={VictoryTheme.material}

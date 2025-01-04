@@ -58,7 +58,7 @@ export async function getPokemonDataService(
       height: response.data.height,
       weight: response.data.weight,
       abilitiesCount: response.data.abilities.length,
-      avatar: response.data.sprites.front_default,
+      sprites: response.data.sprites,
     };
 
     return {

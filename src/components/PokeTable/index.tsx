@@ -111,12 +111,12 @@ export function PokeTable() {
     setOpenPokedex(false);
   };
 
-  const handlePokeCardClick = (id: number, name: string, avatar: string) => {
-    setOpenPokeCard({ id, name, avatar });
+  const handlePokeCardClick = ({ id, name, sprites }: PokedexData) => {
+    setOpenPokeCard({ id, name, sprites });
   };
 
-  const handleFavoriteClick = (id: number, name: string, avatar: string) => {
-    const pokemon: PokedexData = { id, name, avatar };
+  const handleFavoriteClick = ({ id, name, sprites }: PokedexData) => {
+    const pokemon: PokedexData = { id, name, sprites };
     dispatch(toggleFavorite(pokemon));
   };
 
@@ -171,7 +171,7 @@ export function PokeTable() {
       setOpenPokeCard({
         id: pokemonDetail.id,
         name: pokemonDetail.name,
-        avatar: pokemonDetail.sprites.front_default,
+        sprites: pokemonDetail.sprites,
       });
 
       const pageIndex = getPokemonPage(pokemonDetail.id);
@@ -195,7 +195,7 @@ export function PokeTable() {
       <PokeCard
         id={openPokeCard.id}
         name={openPokeCard.name}
-        avatar={openPokeCard.avatar}
+        sprites={openPokeCard.sprites}
       />
       <Box id="details" sx={detailsStyle} />
       <Box id="pokedex" sx={pokedexStyle} />
@@ -230,15 +230,13 @@ export function PokeTable() {
                     key={row.id}
                     id={`pokemon-${row.id}`}
                     sx={{ cursor: "pointer" }}
-                    onClick={() =>
-                      handlePokeCardClick(row.id, row.name, row.avatar)
-                    }
+                    onClick={() => handlePokeCardClick(row)}
                   >
                     <TableCell padding="checkbox">
                       <IconButton
                         onClick={(event) => {
                           event.stopPropagation();
-                          handleFavoriteClick(row.id, row.name, row.avatar);
+                          handleFavoriteClick(row);
                         }}
                         aria-label="favorite"
                       >
@@ -260,7 +258,7 @@ export function PokeTable() {
                     <TableCell align="center">{row.abilitiesCount}</TableCell>
                     <TableCell align="center">
                       <Avatar
-                        src={row.avatar}
+                        src={row.sprites.front_default}
                         alt={row.name}
                         sx={{ justifySelf: "center", height: 50, width: 50 }}
                       />

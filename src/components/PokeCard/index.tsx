@@ -11,7 +11,7 @@ import { showAlert } from "../../store/modules/alert/AlertSlice";
 import { PokedexData } from "../../config/utils/types";
 import { getPokemonDetailThunk } from "../../store/modules/pokemon/pokemonThunk";
 
-export function PokeCard({ id, name, avatar }: PokedexData) {
+export function PokeCard({ id, name, sprites }: PokedexData) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -26,7 +26,7 @@ export function PokeCard({ id, name, avatar }: PokedexData) {
       return;
     }
     dispatch(getPokemonDetailThunk(name));
-    navigate(`/details/${name}`);
+    navigate("/details");
   };
 
   return (
@@ -35,7 +35,7 @@ export function PokeCard({ id, name, avatar }: PokedexData) {
         sx={cardMediaStyle}
         component="img"
         alt={name}
-        image={avatar}
+        image={sprites?.front_default}
       />
       <CardContent>
         <Typography

@@ -20,7 +20,7 @@ import {
   mediaStyle,
   skipAreaStyle,
 } from "./style";
-import { FastForward, FastRewind, HighlightOff } from "@mui/icons-material";
+import { FastForward, FastRewind, InfoOutlined } from "@mui/icons-material";
 import { PokedexData } from "../../config/utils/types";
 import { useAppDispatch } from "../../store/hooks";
 import { toggleFavorite } from "../../store/modules/favorites/favoritesSlice";
@@ -63,7 +63,7 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
   //Detalhes
   const handleDetails = () => {
     dispatch(getPokemonDetailThunk(currentPokemon.name));
-    navigate(`/details/${currentPokemon.name}`);
+    navigate("/details");
   };
 
   // Remover
@@ -72,12 +72,11 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
     dispatch(toggleFavorite(currentPokemon));
   };
 
-  // Fechar
-  const handleExit = () => {
+  // Favoritos
+  const handleFavorites = () => {
     handleMenuClose();
-    handleClose();
+    navigate("/pokedex");
   };
-
   return (
     <Dialog open={open} onClose={handleClose} fullWidth sx={dialogStyle}>
       <Card sx={CardStyle}>
@@ -93,14 +92,14 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
           <CardMedia
             component="img"
             sx={mediaStyle}
-            src={currentPokemon?.avatar}
+            src={currentPokemon?.sprites.front_default}
             alt={currentPokemon?.name}
           />
         </CardMedia>
         <CardActions disableSpacing sx={actionsStyle}>
           <CardActionArea sx={closeAreaStyle}>
             <IconButton onClick={handleMenuOpen} sx={closeButtonStyle}>
-              <HighlightOff />
+              <InfoOutlined />
             </IconButton>
             <Menu
               anchorEl={anchorEl}
@@ -108,8 +107,8 @@ export function Pokedex({ open, handleClose, pokedex }: PokedexProps) {
               onClose={handleMenuClose}
             >
               <MenuItem onClick={handleDetails}>Detalhes</MenuItem>
+              <MenuItem onClick={handleFavorites}>Pokédex</MenuItem>
               <MenuItem onClick={handleRemove}>Remover</MenuItem>
-              <MenuItem onClick={handleExit}>Fechar</MenuItem>
             </Menu>
           </CardActionArea>
           <CardActionArea sx={skipAreaStyle}>
