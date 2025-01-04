@@ -19,7 +19,7 @@
     <a href="https://github.com/JoannaBraccini/Pokedex-FrontEnd"><strong>Explore os arquivos »</strong></a>
     <br />
     <br />
-    <a href="https://growdev-pokedex.vercel.app">Acessar Demonstração</a>
+    <a href="https://pokedex-tawny-seven.vercel.app/">Acessar Demonstração</a>
     ·
     <a href="https://github.com/JoannaBraccini/GrowTwitter-FrontEnd/issues/new?labels=bug&template=bug-report---.md">Reportar Bug</a>
     ·
@@ -54,7 +54,7 @@
 
 ## Sobre o Projeto
 
-[![GrowTwitter Screen Shot][product-screenshot]](https://example.com)
+[![Pokedex][product-screenshot]][product-screenshot]
 
 ### Projeto para avaliação de conhecimentos.
 
@@ -89,7 +89,7 @@ Fazer uma cópia e rodar localmente, ou utilizar pelo link de demonstração sem
 
 ### Pré Requisitos
 
-- --
+---
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
@@ -179,7 +179,7 @@ Link do Projeto: [https://github.com/JoannaBraccini/Pokedex-FrontEnd](https://gi
 [issues-url]: https://github.com/JoannaBraccini/GrowTwitter/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/JoannaBraccini
-[product-screenshot]: assets/screenshot.png
+[product-screenshot]: /public/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
