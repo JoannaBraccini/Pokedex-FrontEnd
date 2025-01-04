@@ -5,7 +5,7 @@ import { Loading } from "../components/Loading";
 import { useAppSelector } from "../store/hooks";
 import { FavoriteList } from "../components/FavoriteList";
 
-export function Pokedex() {
+export function PokedexPage() {
   const { loading } = useAppSelector((state) => state.pokemon);
 
   return (
