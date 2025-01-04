@@ -37,7 +37,6 @@ const list = [
   { name: "Home", path: "/" },
   { name: "Detalhes", path: "/details" },
   { name: "Favoritos", path: "/pokedex" },
-  { name: "Conectar", path: "/sign" },
 ];
 
 export function Header() {
@@ -51,7 +50,6 @@ export function Header() {
   const pathTranslation: Record<string, string> = {
     Detalhes: "details",
     Favoritos: "pokedex",
-    Conectar: "sign",
   };
   // URLs dinâmicas
   const isActive = (path: string) => {

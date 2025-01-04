@@ -3,7 +3,6 @@ import { Home } from "../../pages/Home";
 import { Error } from "../../pages/Error";
 import { Details } from "../../pages/Details";
 import { Pokedex } from "../../pages/pokedex";
-import { Sign } from "../../pages/Sign";
 
 const router = createBrowserRouter([
   {
@@ -17,10 +16,6 @@ const router = createBrowserRouter([
   {
     path: "/pokedex",
     element: <Pokedex />,
-  },
-  {
-    path: "/sign",
-    element: <Sign />,
   },
   {
     path: "*",

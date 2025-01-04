@@ -57,7 +57,7 @@ export function FavoriteList() {
   };
 
   return (
-    <Container>
+    <Container sx={{ height: "100vh" }}>
       <ImageList
         sx={{
           width: "auto",

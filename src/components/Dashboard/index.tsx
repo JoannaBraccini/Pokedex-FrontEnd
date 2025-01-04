@@ -140,7 +140,8 @@ export function Dashboard() {
           <Box sx={{ ...BoxStyle, backgroundColor: "transparent" }}>
             <Box
               component="img"
-              maxWidth={"130%"}
+              width={{ lg: "110%" }}
+              maxWidth={{ xs: "130%" }}
               src={
                 pokemonDetail?.sprites.other["official-artwork"]
                   ?.front_default || pokemonDetail?.sprites?.front_default
